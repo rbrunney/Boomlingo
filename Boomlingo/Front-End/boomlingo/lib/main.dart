@@ -1,6 +1,6 @@
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
 import 'package:flutter/material.dart';
-
+import 'rtc_stateful_display.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: LessonPage()
+      // home: LessonPage()
+      home: RTCVideoDisplay()
     );
   }
 }
