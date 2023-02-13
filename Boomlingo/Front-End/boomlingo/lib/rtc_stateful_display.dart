@@ -85,6 +85,7 @@ void _createOffer() async {
   RTCSessionDescription description =
       await _peerConnection!.createOffer({'offerToReceiveVideo': 1});
   var session = description.sdp.toString();
+  print(session);
   print(json.encode(session));
   _offer = true;
 
@@ -95,20 +96,24 @@ void _createAnswer() async {
   RTCSessionDescription description =
       await _peerConnection!.createAnswer({'offerToReceiveVideo': 1});
 
-  var session = json.decode(description.sdp.toString());
-  print(json.encode(session));
+  var session = description.sdp.toString();
+  print(session);
+  // print(json.decode(session));
+  print(description.toMap());
+  print(description.sdp);
 
   _peerConnection!.setLocalDescription(description);
 }
 
 void _setRemoteDescription() async {
   String jsonString = sdpController.text;
-  dynamic session = await jsonDecode(jsonString);
+  dynamic session = jsonString;
 
   String sdp = json.encode(session);
 
   RTCSessionDescription description =
-      RTCSessionDescription(sdp, _offer ? 'answer' : 'offer');
+      // RTCSessionDescription("$sdp\n", _offer ? 'answer' : 'offer');
+      RTCSessionDescription("$jsonString\n", _offer ? 'answer' : 'offer');
   print(description.toMap());
 
   await _peerConnection!.setRemoteDescription(description);
@@ -117,9 +122,11 @@ void _setRemoteDescription() async {
 void _addCandidate() async {
   String jsonString = sdpController.text;
   dynamic session = await jsonDecode(jsonString);
-  print(session['candidate']);
+  // print(session['candidate']);
   dynamic candidate = RTCIceCandidate(
       session['candidate'], session['sdpMid'], session['sdpMlineIndex']);
+  
+
   await _peerConnection!.addCandidate(candidate);
 }
 
