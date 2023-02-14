@@ -37,6 +37,8 @@ dependencies:
   flutter_webrtc: ^0.9.20
   font_awesome_flutter: ^10.2.1
   font_awesome: ^5.10.1
+  youtube_player_flutter: ^8.1.2
+  flutter_vector_icons: ^2.0.0
 
 dev_dependencies:
   flutter_test:

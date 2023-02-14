@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class LessonPage extends StatefulWidget {
   const LessonPage({Key? key}) : super(key: key);
@@ -9,6 +11,15 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
+
+  final YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: 'gPPxfPThq20',
+      flags: const YoutubePlayerFlags(
+          autoPlay: false,
+          mute: true,
+      ),
+  );
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +49,8 @@ class _LessonPageState extends State<LessonPage> {
                             'What The Dog Doin',
                           style: TextStyle(
                             fontSize: 18,
-                            fontFamily: global_style.textFont
+                            fontFamily: global_style.textFont,
+                            fontWeight: FontWeight.bold
                           ),
                         ),
                         const Spacer(),
@@ -54,6 +66,42 @@ class _LessonPageState extends State<LessonPage> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.90,
+                    child: Card(
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(15))
+                            ),
+                            child: YoutubePlayer(
+                              controller: _controller,
+                              showVideoProgressIndicator: true
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: const [
+                                Icon(Ionicons.volume_low_outline),
+                                Spacer(),
+                                Icon(Ionicons.md_play_skip_back_outline),
+                                Spacer(),
+                                Icon(Ionicons.pause_outline),
+                                Spacer(),
+                                Icon(Ionicons.md_play_skip_forward_outline),
+                                Spacer(),
+                                Icon(MaterialCommunityIcons.arrow_expand)
+                              ],
+                            )
+                          )
+                        ],
+                      )
                     )
                   )
                 ],
