@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class LessonPage extends StatefulWidget {
   const LessonPage({Key? key}) : super(key: key);
@@ -82,6 +83,22 @@ class _LessonPageState extends State<LessonPage> {
                               controller: _controller,
                               showVideoProgressIndicator: true
                             ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Row(
+                              children: const [
+                                Icon(Ionicons.volume_low_outline),
+                                Spacer(),
+                                Icon(Ionicons.md_play_skip_back_outline),
+                                Spacer(),
+                                Icon(Ionicons.pause_outline),
+                                Spacer(),
+                                Icon(Ionicons.md_play_skip_forward_outline),
+                                Spacer(),
+                                Icon(MaterialCommunityIcons.arrow_expand)
+                              ],
+                            )
                           )
                         ],
                       )
