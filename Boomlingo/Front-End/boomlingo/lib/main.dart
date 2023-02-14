@@ -1,4 +1,5 @@
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
+import 'package:boomlingo/util/page_navigation.dart';
 import 'package:flutter/material.dart';
 import 'rtc_stateful_display.dart';
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       // home: LessonPage()
       // home: RTCVideoDisplay()
-      home: LessonPage()
+      home: PageNavigation()
       );
   }
 }

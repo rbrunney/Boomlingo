@@ -1,6 +1,7 @@
 import 'package:boomlingo/homePage/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
 
 
 class PageNavigation extends StatefulWidget {
@@ -58,8 +59,8 @@ class _PageNavigation extends State<PageNavigation> {
             ),
           ],
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.blueGrey,
+          selectedItemColor: const Color(global_style.darkBlueAccentColor),
+          unselectedItemColor: const Color(global_style.lightBlueAccentColor),
           onTap: onTapped,
         ),
       ),
