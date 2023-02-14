@@ -1,16 +1,14 @@
 package objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Question")
 public class Question {
     @Id
     private int id;
     private String question;
-    private String correct_answer;
-
+    @OneToOne
+    Answer correct_answer;
 
     public void setId(int id) {
         this.id = id;
@@ -18,5 +16,13 @@ public class Question {
 
     public int getId() {
         return id;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }
