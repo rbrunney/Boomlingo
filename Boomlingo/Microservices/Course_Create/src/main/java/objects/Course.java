@@ -1,19 +1,17 @@
-package org.example;
+package objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 @Entity
-public class Course_Object {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String title = "New Course";
-    private String lessons = "Lessons";
+    private String title;
+    private String lessons;
 
     public String getTitle() {
         return title;

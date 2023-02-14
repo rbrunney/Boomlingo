@@ -1,4 +1,4 @@
-package org.example;
+package jpas;
 
 public class CourseJPA {
 }
