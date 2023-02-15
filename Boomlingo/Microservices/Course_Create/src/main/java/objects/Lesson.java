@@ -1,6 +1,7 @@
 package objects;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Lesson")
@@ -10,8 +11,10 @@ public class Lesson {
     private int id;
     private String title;
     @ManyToOne
+    Course course;
+    @OneToMany
     @JoinColumn(name = "Question_Id")
-    Question question;
+    Set<Question> question;
     public void setId(int id) {
         this.id = id;
     }

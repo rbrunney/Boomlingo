@@ -5,11 +5,13 @@ import javax.persistence.*;
 @Table(name = "Question")
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String question;
+    @ManyToOne
+    Lesson lesson;
     @OneToOne
     Answer correct_answer;
-
     public void setId(int id) {
         this.id = id;
     }

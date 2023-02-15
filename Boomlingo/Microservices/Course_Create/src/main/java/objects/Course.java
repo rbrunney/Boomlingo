@@ -9,7 +9,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String title;
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "Lesson_Id")
     Lesson lessons;
 
