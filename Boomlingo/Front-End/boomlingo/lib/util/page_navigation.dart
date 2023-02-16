@@ -1,8 +1,10 @@
 import 'package:boomlingo/homePage/home_page.dart';
+import 'package:boomlingo/pages/lesson/lesson_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 
+import 'nav_widget.dart';
 
 class PageNavigation extends StatefulWidget {
   const PageNavigation({Key? key}) : super(key: key);
@@ -25,45 +27,67 @@ class _PageNavigation extends State<PageNavigation> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: PageView(
-          controller: pageController,
-          onPageChanged: (newPage) {
-            setState(() {
-              _selectedIndex = newPage;
-            });
-          },
-          children: const [
-            HomePage()
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.dumbbell),
-              label: 'Workouts',
+        child: Scaffold(
+            body: PageView(
+              allowImplicitScrolling: true,
+              controller: pageController,
+              onPageChanged: (newPage) {
+                setState(() {
+                  _selectedIndex = newPage;
+                });
+              },
+              children: const [LessonPage(), HomePage()],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.carrot),
-                label: 'Meals'
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
-              label: 'Account',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color(global_style.darkBlueAccentColor),
-          unselectedItemColor: const Color(global_style.lightBlueAccentColor),
-          onTap: onTapped,
-        ),
-      ),
-    );
+            bottomNavigationBar: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30),
+                    topLeft: Radius.circular(30)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+                child: BottomNavigationBar(
+                  iconSize: 20,
+                  showSelectedLabels: false,
+                  showUnselectedLabels: false,
+                  items: const <BottomNavigationBarItem>[
+                    BottomNavigationBarItem(
+                        icon: Icon(Icons.play_lesson_rounded),
+                        activeIcon: NavWidget(
+                          navIcon: Icons.play_lesson_rounded,
+                          navName: "Lessons",
+                        ),
+                        label: "Lessons"),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.search),
+                      activeIcon: NavWidget(
+                          navIcon: Icons.search,
+                          navName: "Search",
+                        ),
+                      label: 'Search',
+                    ),
+                    BottomNavigationBarItem(
+                        icon: Icon(FontAwesomeIcons.carrot), label: 'Meals'),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle),
+                      label: 'Account',
+                    ),
+                  ],
+                  currentIndex: _selectedIndex,
+                  selectedItemColor:
+                      const Color(global_style.darkBlueAccentColor),
+                  unselectedItemColor:
+                      const Color(global_style.lightBlueAccentColor),
+                  onTap: onTapped,
+                ),
+              ),
+            )));
   }
 }
