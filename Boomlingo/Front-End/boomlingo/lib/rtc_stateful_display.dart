@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:boomlingo/signaling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -17,12 +18,13 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
   RTCVideoRenderer _remoteRenderer = RTCVideoRenderer();
   String? roomID;
   TextEditingController textEditingController = TextEditingController();
-
+  Signaling signaler = Signaling();
   @override
   void initState() {
     _localRenderer.initialize();
     _remoteRenderer.initialize();
-
+    // signaler.createRoom(_remoteRenderer);
+    signaler.initChannel();
     super.initState();
   }
 

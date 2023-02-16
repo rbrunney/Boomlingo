@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:boomlingo/util/style/global_style.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 typedef void StreamStateCallback(MediaStream stream);
 
@@ -22,6 +23,17 @@ class Signaling {
   String? roomID;
   String? currentRoomText;
   StreamStateCallback? onAddRemoteStream;
+
+  final signalingChannel = WebSocketChannel.connect(
+    Uri(scheme: "ws", host: "10.0.2.2", port: 8080, path: "/socket"),
+  );
+
+  initChannel() async {
+    await signalingChannel.ready.then((value) {
+      print("Channel ready");
+    });
+    // signalingChannel.sink.add("random nonsense");
+  }
 
   Future<String> createRoom(RTCVideoRenderer remoteRenderer) async {
     print("Create peer connection with config $config");
