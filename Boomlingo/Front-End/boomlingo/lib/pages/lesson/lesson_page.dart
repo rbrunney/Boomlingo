@@ -75,20 +75,18 @@ class _LessonPageState extends State<LessonPage> {
                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
                       child: Column(
                         children: [
-                          Container(
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(15))
-                            ),
+                          ClipRRect(
+                            borderRadius: const BorderRadius.only(topRight: Radius.circular(15), topLeft: Radius.circular(15)), 
                             child: YoutubePlayer(
                               controller: _controller,
                               showVideoProgressIndicator: true
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                             child: Row(
                               children: const [
-                                Icon(Ionicons.volume_low_outline),
+                                Icon(Ionicons.volume_high_outline),
                                 Spacer(),
                                 Icon(Ionicons.md_play_skip_back_outline),
                                 Spacer(),
@@ -101,6 +99,24 @@ class _LessonPageState extends State<LessonPage> {
                             )
                           )
                         ],
+                      )
+                    )
+                  ),
+                  SizedBox(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.05, vertical: 20),
+                      child: Card(
+                        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+                        child: Row(
+                          children: const [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.black,
+                            ),
+                            Spacer(),
+                            Icon(Ionicons.md_chevron_up_outline)
+                          ]
+                        )
                       )
                     )
                   )

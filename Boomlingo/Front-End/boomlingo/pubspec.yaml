@@ -39,7 +39,11 @@ dependencies:
   font_awesome: ^5.10.1
   youtube_player_flutter: ^8.1.2
   flutter_vector_icons: ^2.0.0
+<<<<<<< HEAD
   web_socket_channel: ^2.3.0
+=======
+  page_transition: ^2.0.9
+>>>>>>> 64ef003671ebd2f91fb67eb3ab618f0a1525f588
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +99,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/fonts/Inter/Inter-VariableFont_slnt,wght.ttf
+    - assets/images/icon.png
   fonts:
     - family: Inter
       fonts:  
