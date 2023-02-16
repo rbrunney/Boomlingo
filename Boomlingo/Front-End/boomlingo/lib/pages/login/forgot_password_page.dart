@@ -1,4 +1,12 @@
+import 'package:boomlingo/pages/login/verification_code_page.dart';
+import 'package:boomlingo/util/widgets/custom_text.dart';
+import 'package:boomlingo/util/widgets/custom_text_field.dart';
+import 'package:boomlingo/util/widgets/page_image.dart';
+import 'package:boomlingo/util/widgets/page_title.dart';
+import 'package:boomlingo/util/widgets/to_previous_page.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
 
 class ForgotPasswordPage extends StatefulWidget {
   final String title;
@@ -28,20 +36,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void onSubmit() {
-    if (emailErrorText == null) {
-      Requests.makeGetRequest(
-              '${global_info.localhost_url}/invested_account/forgot_password/${emailController.text}')
-          .then((value) {
-        var response = json.decode(value);
-        if (response['results']['status-code'] == 200) {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: VerificationCodePage(userEmail: emailController.text),
-                  type: PageTransitionType.rightToLeftWithFade));
-        }
-      });
-    }
+    Navigator.push(
+        context,
+        PageTransition(
+            child: VerificationCodePage(userEmail: emailController.text),
+            type: PageTransitionType.rightToLeftWithFade));
   }
 
   @override
@@ -51,7 +50,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             body: SingleChildScrollView(
       child: Column(children: [
         const ToPrevPage(),
-        const PageImage(assetImg: 'assets/images/icon.png', marginTop: 7),
+        const PageImage(assetImg: 'assets/images/icon.png',  marginTop: 55),
         PageTitle(title: widget.title),
         const PageTitle(title: "Password?"),
         CustomText(
@@ -80,11 +79,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         ? onSubmit
                         : () {},
                     style: ElevatedButton.styleFrom(
-                      primary: Color(global_styling.LOGO_COLOR),
+                      primary: const Color(global_style.lightBlueAccentColor),
                     ),
                     child: Text(
                       "Send Email",
-                      style: TextStyle(fontFamily: global_styling.TITLE_FONT),
+                      style: TextStyle(fontFamily: global_style.textFont),
                     )))),
       ]),
     )));

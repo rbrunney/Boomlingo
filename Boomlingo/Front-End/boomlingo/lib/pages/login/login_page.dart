@@ -1,4 +1,6 @@
 import 'package:boomlingo/pages/login/forgot_password_page.dart';
+import 'package:boomlingo/pages/login/register_page.dart';
+import 'package:boomlingo/util/page_navigation.dart';
 import 'package:boomlingo/util/widgets/custom_text_field.dart';
 import 'package:boomlingo/util/widgets/page_image.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
@@ -93,51 +95,10 @@ class _LoginPageState extends State<LoginPage> {
               child: SizedBox(
                   width: MediaQuery.of(context).size.width - 30,
                   child: ElevatedButton(
-                      onPressed: () async {
-                        await Requests.makeGetRequest(
-                                '${global_info.localhost_url}/invested_account/encrypt/${_usernameController.text}')
-                            .then((value) {
-                          setState(() {
-                            username = value;
-                          });
-                        });
-
-                        await Requests.makeGetRequest(
-                                '${global_info.localhost_url}/invested_account/encrypt/${_passwordController.text}')
-                            .then((value) {
-                          setState(() {
-                            password = value;
-                          });
-                        });
-
+                      onPressed: () {
+                        
                         // Make Request Login
-                        Map<String, dynamic> requestBody = {
-                          "username": username,
-                          "password": password
-                        };
-
-                        Requests.makePostRequest(
-                                '${global_info.localhost_url}/invested_account/authenticate',
-                                requestBody)
-                            .then((value) async {
-                          var response = json.decode(value);
-                          if (response["results"]["status-code"] == 400) {
-                            await showDialog<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Alert(
-                                    title: "Login Failed",
-                                    message: "Please try again!",
-                                    buttonMessage: "Retry",
-                                    width: 50,
-                                  );
-                                });
-                          } else if (response['message']
-                              .toString()
-                              .contains("Passed!")) {
-                            global_info.access_token =
-                                response['results']['refresh-token'];
-                            global_info.username = _usernameController.text;
+                        
                             // Save the JWT tokens to the system.
                             Navigator.push(
                                 context,
@@ -145,11 +106,9 @@ class _LoginPageState extends State<LoginPage> {
                                     child: const PageNavigation(),
                                     type: PageTransitionType
                                         .rightToLeftWithFade));
-                          }
-                        });
                       },
                       style: ElevatedButton.styleFrom(
-                        primary: Color(global_style.LOGO_COLOR),
+                        primary: const Color(global_style.lightBlueAccentColor),
                       ),
                       child: Text(
                         "Login",
@@ -164,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 5),
                     child: Text(
-                      "New to InvestEd?",
+                      "New to Boomlingo?",
                       style: TextStyle(
                         fontFamily: global_style.textFont,
                       ),

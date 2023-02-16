@@ -12,8 +12,12 @@ class PageImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: marginTop),
-      child: Image(image: AssetImage(assetImg)), // Display Logo
+      margin: EdgeInsets.only(top: marginTop, bottom: marginTop),
+      child: Image(
+        image: AssetImage(assetImg),
+        width: 250,
+        height: 250,
+      ), // Display Logo
     );
   }
 }
