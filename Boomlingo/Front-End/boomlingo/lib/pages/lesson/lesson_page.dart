@@ -103,7 +103,7 @@ class _LessonPageState extends State<LessonPage> {
                                               if (isVideoMute) {
                                                 _controller.mute();
                                               } else {
-                                                _controller.unMute();  
+                                                _controller.unMute();
                                               }
                                             });
                                           },
@@ -111,8 +111,14 @@ class _LessonPageState extends State<LessonPage> {
                                               ? Ionicons.volume_mute_outline
                                               : Ionicons.volume_high_outline)),
                                       const Spacer(),
-                                      const Icon(
-                                          Ionicons.md_play_skip_back_outline),
+                                      IconButton(
+                                          onPressed: () {
+                                            _controller.seekTo(
+                                                _controller.value.position -
+                                                    const Duration(seconds: 2));
+                                          },
+                                          icon: const Icon(Ionicons
+                                              .md_play_skip_back_outline)),
                                       const Spacer(),
                                       IconButton(
                                           onPressed: () {
@@ -122,7 +128,7 @@ class _LessonPageState extends State<LessonPage> {
                                               if (isVideoPlaying) {
                                                 _controller.play();
                                               } else {
-                                                _controller.pause();  
+                                                _controller.pause();
                                               }
                                             });
                                           },
@@ -130,8 +136,14 @@ class _LessonPageState extends State<LessonPage> {
                                               ? Ionicons.pause_outline
                                               : Ionicons.play_outline)),
                                       const Spacer(),
-                                      const Icon(Ionicons
-                                          .md_play_skip_forward_outline),
+                                      IconButton(
+                                          onPressed: () {
+                                            _controller.seekTo(
+                                                _controller.value.position +
+                                                    const Duration(seconds: 2));
+                                          },
+                                          icon: const Icon(Ionicons
+                                              .md_play_skip_forward_outline)),
                                       const Spacer(),
                                       const Icon(
                                           MaterialCommunityIcons.arrow_expand)
