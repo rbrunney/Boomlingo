@@ -145,8 +145,13 @@ class _LessonPageState extends State<LessonPage> {
                                           icon: const Icon(Ionicons
                                               .md_play_skip_forward_outline)),
                                       const Spacer(),
-                                      const Icon(
-                                          MaterialCommunityIcons.arrow_expand)
+                                      IconButton(
+                                          onPressed: () {
+                                            _controller.toggleFullScreenMode();
+                                          },
+                                          icon: const Icon(
+                                              MaterialCommunityIcons
+                                                  .arrow_expand))
                                     ],
                                   ))
                             ],
@@ -161,14 +166,92 @@ class _LessonPageState extends State<LessonPage> {
                               shape: const RoundedRectangleBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(15))),
-                              child: Row(children: const [
-                                CircleAvatar(
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 12, right: 20, top: 10, bottom: 10),
+                                child: Row(children: [
+                                const CircleAvatar(
                                   radius: 30,
                                   backgroundColor: Colors.black,
                                 ),
-                                Spacer(),
-                                Icon(Ionicons.md_chevron_up_outline)
-                              ]))))
+                                const Spacer(),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'History',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const Spacer(),
+                                const Icon(Ionicons.md_chevron_down)
+                              ])
+                              )))),
+                  SizedBox(
+                      child: Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.05,
+                              vertical: 20),
+                          child: Card(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 12, right: 20, top: 10, bottom: 10),
+                                child: Row(children: [
+                                const CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.black,
+                                ),
+                                const Spacer(),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Lesson',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const Spacer(),
+                                const Icon(Ionicons.md_chevron_down)
+                              ])
+                              )))),
+                  SizedBox(
+                      child: Container(
+                          margin: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.05,
+                              vertical: 20),
+                          child: Card(
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15))),
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 12, right: 20, top: 10, bottom: 10),
+                                child: Row(children: [
+                                const CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.black,
+                                ),
+                                const Spacer(),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'Quiz',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                const Spacer(),
+                                const Icon(Ionicons.md_chevron_down)
+                              ])
+                              ))))
                 ],
               ),
             )));
