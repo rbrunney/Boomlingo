@@ -1,4 +1,4 @@
-import 'package:boomlingo/pages/lesson/expandable_card.dart';
+import 'package:boomlingo/pages/lesson/expandable_card/expandable_card.dart';
 import 'package:boomlingo/pages/lesson/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
