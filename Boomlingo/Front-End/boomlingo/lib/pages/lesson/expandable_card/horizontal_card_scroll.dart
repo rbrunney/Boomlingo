@@ -2,7 +2,7 @@ import 'package:boomlingo/pages/lesson/expandable_card/sub_card.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalCardSlider extends StatefulWidget {
-  List<SubCard> cards;
+  List<Widget> cards;
   HorizontalCardSlider({super.key, this.cards = const []});
 
   @override

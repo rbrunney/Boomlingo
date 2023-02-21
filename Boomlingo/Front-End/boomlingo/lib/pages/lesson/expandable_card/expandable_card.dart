@@ -1,5 +1,6 @@
 import 'package:boomlingo/pages/lesson/expandable_card/horizontal_card_scroll.dart';
 import 'package:boomlingo/pages/lesson/expandable_card/sub_card.dart';
+import 'package:boomlingo/pages/lesson/expandable_card/sub_cards/lesson_card.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -60,10 +61,9 @@ class _ExpandableCardState extends State<ExpandableCard> {
                           visible: isExpanded,
                           child: HorizontalCardSlider(
                             cards: const [
-                              SubCard(),
-                              SubCard(),
-                              SubCard(),
-                              SubCard()
+                              LessonCard(),
+                              LessonCard(),
+                              LessonCard()
                             ],
                           )
                         )
