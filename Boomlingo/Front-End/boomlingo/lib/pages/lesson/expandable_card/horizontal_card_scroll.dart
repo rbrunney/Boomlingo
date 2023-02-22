@@ -13,7 +13,7 @@ class _HorizontalCardSliderState extends State<HorizontalCardSlider> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 200,
+        height: 300,
         child: PageView.builder(
             itemCount: widget.cards.length,
             pageSnapping: true,
