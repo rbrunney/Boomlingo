@@ -25,6 +25,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
     _remoteRenderer.initialize();
     // signaler.createRoom(_remoteRenderer);
     signaler.initChannel();
+    signaler.createRoom(_remoteRenderer);
     super.initState();
   }
 

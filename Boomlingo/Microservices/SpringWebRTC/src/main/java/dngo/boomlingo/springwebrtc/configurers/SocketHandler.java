@@ -25,17 +25,26 @@ public class SocketHandler extends TextWebSocketHandler {
 
         JSONObject messageBody = new JSONObject(message.getPayload());
         Room roomToUse = null;
-        for(Room room : rooms){
-            if(room.getUsername().equals(messageBody.getString("username"))){
-                roomToUse = room;
-            }
-        }
 
-        if(roomToUse == null){
-            roomToUse = new Room();
-        }
         if(messageBody.keySet().contains("username")){
+            for(Room room : rooms){
+                if(room.getUsername().equals(messageBody.getString("username"))){
+                    roomToUse = room;
+                }
+            }
+            if(roomToUse == null){
+                roomToUse = new Room();
+            }
             roomToUse.setUsername(messageBody.getString("username"));
+        }else{
+            for(Room room : rooms){
+                if(room.getUsername().equals("default")){
+                    roomToUse = room;
+                }
+            }
+            if(roomToUse == null){
+                roomToUse = new Room();
+            }
         }
 
         if(messageBody.keySet().contains("offer") && messageBody.keySet().contains("username")){
@@ -51,6 +60,8 @@ public class SocketHandler extends TextWebSocketHandler {
                     sessionToSendTo.sendMessage(message);
                 }
             }
+        } else if(messageBody.keySet().contains("offer")){
+            roomToUse.setUserSession(session);
         }
 
 //        for (WebSocketSession webSocketSession : sessions) {

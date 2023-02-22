@@ -37,4 +37,22 @@ public class Room {
     public void setUserSession(WebSocketSession userSession) {
         this.userSession = userSession;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder result = new StringBuilder();
+
+        result.append("Username: ").append(username).append("\nUser session id: ");
+        if(userSession != null){
+            result.append(userSession.getId()).append("\nConnected sessions: ");
+        }else{
+            result.append("no session assigned").append("\nConnected sessions: ");
+        }
+        for(WebSocketSession session: sessions){
+            result.append("\n").append(session.getId());
+        }
+
+        return result.toString();
+    }
+
 }
