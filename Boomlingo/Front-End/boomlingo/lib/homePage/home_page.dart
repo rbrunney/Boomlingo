@@ -12,10 +12,28 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: const [Text("sheeeesshshhhhh"), ],
-        ),
-      ),
+          child: Stack(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        children: [
+          Column(
+            children: [
+              Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.black,
+                  ),
+                  Column(children: [
+                    Container(child: Text("Alex"),)
+                  ],)
+                ],
+              ),
+              Row()
+            ],
+          ),
+          Column()
+        ],
+      )),
     );
   }
 }

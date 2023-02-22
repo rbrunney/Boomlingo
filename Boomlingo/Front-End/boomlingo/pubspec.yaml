@@ -39,8 +39,8 @@ dependencies:
   font_awesome: ^5.10.1
   youtube_player_flutter: ^8.1.2
   flutter_vector_icons: ^2.0.0
-  page_transition: ^2.0.9
   web_socket_channel: ^2.3.0
+  page_transition: ^2.0.9
 
 dev_dependencies:
   flutter_test:
