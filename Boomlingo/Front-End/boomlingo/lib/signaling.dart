@@ -33,6 +33,9 @@ class Signaling {
       print("Channel ready");
     });
     // signalingChannel.sink.add("random nonsense");
+    signalingChannel.stream.listen((event) {
+      print(event);
+    });
   }
 
   Future<String> createRoom(RTCVideoRenderer remoteRenderer) async {
@@ -57,6 +60,14 @@ class Signaling {
 
     RTCSessionDescription offer = await peerConnection!.createOffer();
     await peerConnection!.setLocalDescription(offer);
+    //Be sure to modify to add a username later to the jsonbody
+    Map<String, dynamic> offerMap = {"offer": offer.toMap()};
+
+    String offerJson = json.encode(offerMap);
+
+    print(offerJson);
+
+    signalingChannel.sink.add(offerJson);
 
     return "";
   }
