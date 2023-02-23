@@ -7,7 +7,8 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 class ExpandableCard extends StatefulWidget {
   final String cardHeader;
-  const ExpandableCard({super.key, this.cardHeader = ''});
+  final List<Widget> subCards;
+  const ExpandableCard({super.key, this.cardHeader = '', this.subCards = const []});
 
   @override
   State<ExpandableCard> createState() => _ExpandableCardState();
@@ -32,41 +33,45 @@ class _ExpandableCardState extends State<ExpandableCard> {
                 child: Card(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(15))),
-                    color: isExpanded ? const Color(global_style.darkBlueAccentColor) :const Color(global_style.whiteAccentColor),
+                    color: isExpanded
+                        ? const Color(global_style.darkBlueAccentColor)
+                        : const Color(global_style.whiteAccentColor),
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.only(
-                              left: 12, right: 20, top: 10, bottom: 10),
-                          child: Row(children: [
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                widget.cardHeader,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: global_style.textFont,
-                                    fontWeight: FontWeight.bold,
-                                    color: isExpanded ? const Color(global_style.whiteAccentColor) : const Color(global_style.textColor)
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 20, top: 10, bottom: 10),
+                            child: Row(children: [
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  widget.cardHeader,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold,
+                                      color: isExpanded
+                                          ? const Color(
+                                              global_style.whiteAccentColor)
+                                          : const Color(
+                                              global_style.textColor)),
                                 ),
                               ),
-                            ),
-                            const Spacer(),
-                            Icon(
-                              isExpanded ? Ionicons.md_chevron_up : Ionicons.md_chevron_down,
-                              color: isExpanded ? const Color(global_style.whiteAccentColor) : const Color(global_style.textColor)
-                            )
-                          ])),
+                              const Spacer(),
+                              Icon(
+                                  isExpanded
+                                      ? Ionicons.md_chevron_up
+                                      : Ionicons.md_chevron_down,
+                                  color: isExpanded
+                                      ? const Color(
+                                          global_style.whiteAccentColor)
+                                      : const Color(global_style.textColor))
+                            ])),
                         Visibility(
-                          visible: isExpanded,
-                          child: HorizontalCardSlider(
-                            cards: const [
-                              LessonCard(),
-                              LessonCard(),
-                              LessonCard()
-                            ],
-                          )
-                        )
+                            visible: isExpanded,
+                            child: HorizontalCardSlider(
+                              cards: widget.subCards,
+                            ))
                       ],
                     )))));
   }

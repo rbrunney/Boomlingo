@@ -1,4 +1,6 @@
 import 'package:boomlingo/pages/lesson/expandable_card/expandable_card.dart';
+import 'package:boomlingo/pages/lesson/expandable_card/sub_cards/history_card.dart';
+import 'package:boomlingo/pages/lesson/expandable_card/sub_cards/lesson_card.dart';
 import 'package:boomlingo/pages/lesson/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
@@ -26,8 +28,8 @@ class _LessonPageState extends State<LessonPage> {
               children: const [
                 LessonHeader(headerText: "What The Dog Doin"),
                 VideoPlayer(youtubeVideoId: "gPPxfPThq20"),
-                ExpandableCard(cardHeader: "History"),
-                ExpandableCard(cardHeader: "Lessons"),
+                ExpandableCard(cardHeader: "History", subCards: [HistoryCard(historyTitle: "Year Made",), HistoryCard(historyTitle: "Original Media",)]),
+                ExpandableCard(cardHeader: "Lessons", subCards: [LessonCard(), LessonCard(), LessonCard()]),
                 ExpandableCard(cardHeader: "Quiz")
               ],
             ),
