@@ -18,15 +18,14 @@ def lambda_handler(event, context):
 
     print(mycursor.rowcount, "record inserted.")
 
-test_vals = {
-    "username":"YourMom",
-    "password":"myBed",
-    "email":"yourmominmybed@rightnow.com",
-    "firstname":"My",
-    "lastname":"Mom",
-    "DOB":"12/12/1972",
-    "joindate":"2/22/2023"
-    }
+# test_vals = {
+#     "username":"YourMom",
+#     "password":"myBed",
+#     "email":"yourmominmybed@rightnow.com",
+#     "firstname":"My",
+#     "lastname":"Mom",
+#     "DOB":"12/12/1972",
+#     "joindate":"2/22/2023"
+#     }
 
-
-lambda_handler(test_vals, "None")
+# lambda_handler(test_vals, "None")
