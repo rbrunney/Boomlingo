@@ -97,6 +97,7 @@ flutter:
   assets:
     - assets/fonts/Inter/Inter-VariableFont_slnt,wght.ttf
     - assets/images/icon.png
+    - assets/images/CqBO6J.jpg
   fonts:
     - family: Inter
       fonts:  

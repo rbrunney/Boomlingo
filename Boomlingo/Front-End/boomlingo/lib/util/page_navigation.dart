@@ -36,7 +36,7 @@ class _PageNavigation extends State<PageNavigation> {
                   _selectedIndex = newPage;
                 });
               },
-              children: const [LessonPage(), HomePage()],
+              children: const [HomePage(), LessonPage()],
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(
@@ -59,12 +59,12 @@ class _PageNavigation extends State<PageNavigation> {
                   showUnselectedLabels: false,
                   items: const <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
-                        icon: Icon(Icons.play_lesson_rounded),
+                        icon: Icon(Icons.home_rounded),
                         activeIcon: NavWidget(
-                          navIcon: Icons.play_lesson_rounded,
-                          navName: "Lessons",
+                          navIcon: Icons.home_rounded,
+                          navName: "Home",
                         ),
-                        label: "Lessons"),
+                        label: "Home"),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.search),
                       activeIcon: NavWidget(
