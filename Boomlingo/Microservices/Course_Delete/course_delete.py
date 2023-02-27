@@ -11,15 +11,17 @@ def lambda_handler(event, context):
     
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO courses (course_name) VALUES (%s)"
-    val = (event["course_name"],)
-    mycursor.execute(sql, val)
+    sql = "DELETE FROM courses WHERE course_name = %s"
+    adr = (event["course_name"],)
+
+    mycursor.execute(sql, adr)
+
     mydb.commit()
 
-    return(mycursor.rowcount, "record inserted.")
+    return (mycursor.rowcount, "record deleted.")
 
 test_vals = {
-    "course_name":"Memes"
+    "course_name":"Slang"
     }
 
 lambda_handler(test_vals, "None")
