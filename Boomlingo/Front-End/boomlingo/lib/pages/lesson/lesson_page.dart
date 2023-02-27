@@ -28,8 +28,8 @@ class _LessonPageState extends State<LessonPage> {
               children: const [
                 LessonHeader(headerText: "What The Dog Doin"),
                 VideoPlayer(youtubeVideoId: "gPPxfPThq20"),
-                ExpandableCard(cardHeader: "History", subCards: [HistoryCard(historyTitle: "Year Made",), HistoryCard(historyTitle: "Original Media",)]),
-                ExpandableCard(cardHeader: "Lessons", subCards: [LessonCard(), LessonCard(), LessonCard()]),
+                ExpandableCard(cardHeader: "History", subCards: [HistoryCard(historyTitle: "Year Made", historyDescription: "2012",), HistoryCard(historyTitle: "Original Media", historyDescription: "Vine",)]),
+                ExpandableCard(cardHeader: "Lessons", subCards: [LessonCard(totalExcercise: 3,), LessonCard(totalExcercise: 5), LessonCard(totalExcercise: 9)]),
                 ExpandableCard(cardHeader: "Quiz")
               ],
             ),
