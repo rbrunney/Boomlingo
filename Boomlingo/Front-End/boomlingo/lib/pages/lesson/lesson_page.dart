@@ -4,8 +4,6 @@ import 'package:boomlingo/pages/lesson/expandable_card/sub_cards/lesson_card.dar
 import 'package:boomlingo/pages/lesson/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'lesson_header.dart';
 

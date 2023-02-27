@@ -8,6 +8,7 @@ class CustomText extends StatefulWidget {
   double rightMargin;
   double fontSize;
   String text;
+  bool isBold;
   Alignment alignment;
   Color color;
 
@@ -19,6 +20,7 @@ class CustomText extends StatefulWidget {
       this.rightMargin = 0,
       this.fontSize = 15,
       this.text = '',
+      this.isBold = false,
       this.color = Colors.white,
       this.alignment = Alignment.center})
       : super(key: key);
@@ -39,6 +41,6 @@ class _CustomTextState extends State<CustomText> {
         alignment: widget.alignment,
         child: Text(widget.text,
             style: TextStyle(
-                fontFamily: global_style.textFont, fontSize: widget.fontSize)));
+                fontFamily: global_style.textFont, fontSize: widget.fontSize, fontWeight: widget.isBold ? FontWeight.bold : null)));
   }
 }

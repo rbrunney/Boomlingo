@@ -21,7 +21,8 @@ class PageTitle extends StatelessWidget {
           title,
           style: TextStyle(
               fontFamily: global_style.textFont,
-              fontSize: fontSize
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold
           ),
         )
     );
