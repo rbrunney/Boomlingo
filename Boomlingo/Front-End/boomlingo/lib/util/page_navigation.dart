@@ -38,7 +38,7 @@ class _PageNavigation extends State<PageNavigation> {
                   _selectedIndex = newPage;
                 });
               },
-              children: const [HomePage(), LessonPage(), VideoCallPage()],
+              children: const [HomePage(), LessonPage(), VideoCallPage(),  AccountPage()],
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(
@@ -84,6 +84,7 @@ class _PageNavigation extends State<PageNavigation> {
                         label: 'Conference'),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.account_circle),
+                      activeIcon: NavWidget(navName: "Account", navIcon: Icons.account_circle),
                       label: 'Account',
                     ),
                   ],
