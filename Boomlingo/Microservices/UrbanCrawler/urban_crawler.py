@@ -25,7 +25,7 @@ def crawl_urban_dictionary(search_term):
         
 
     return {
-        "term" : search_term,
+        "term" : search_term.replace('%20', ' '),
         "definition" : profanity.censor(definition.get_text()),
         "example" : profanity.censor(example.get_text())
     }
