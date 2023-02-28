@@ -127,14 +127,13 @@ class _HomePageState extends State<HomePage> {
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Expanded(child: ListView.separated(
+                            ListView.separated(
                               shrinkWrap: true,
                               itemCount: courseCards.length,
                               itemBuilder: (context, index) {
                                 return courseCards[index];
                               }, separatorBuilder: (BuildContext context, int index) => const Divider(),
-                            ),)
-                            
+                            )
                           ]),
                         )),
                   ),

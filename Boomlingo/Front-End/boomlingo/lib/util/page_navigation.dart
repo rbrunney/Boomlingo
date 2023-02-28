@@ -1,6 +1,7 @@
 import 'package:boomlingo/homePage/home_page.dart';
 import 'package:boomlingo/pages/account/account_page.dart';
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
+import 'package:boomlingo/pages/video_call/video_call_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
@@ -37,7 +38,7 @@ class _PageNavigation extends State<PageNavigation> {
                   _selectedIndex = newPage;
                 });
               },
-              children: const [HomePage(), LessonPage(), AccountPage()],
+              children: const [HomePage(), LessonPage(), VideoCallPage()],
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(
@@ -69,13 +70,18 @@ class _PageNavigation extends State<PageNavigation> {
                     BottomNavigationBarItem(
                       icon: Icon(Icons.search),
                       activeIcon: NavWidget(
-                          navIcon: Icons.search,
-                          navName: "Search",
-                        ),
+                        navIcon: Icons.search,
+                        navName: "Search",
+                      ),
                       label: 'Search',
                     ),
                     BottomNavigationBarItem(
-                        icon: Icon(FontAwesomeIcons.carrot), label: 'Meals'),
+                        icon: Icon(Icons.video_call_rounded),
+                        activeIcon: NavWidget(
+                          navIcon: Icons.video_call_rounded,
+                          navName: "Video",
+                        ),
+                        label: 'Conference'),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.account_circle),
                       label: 'Account',
