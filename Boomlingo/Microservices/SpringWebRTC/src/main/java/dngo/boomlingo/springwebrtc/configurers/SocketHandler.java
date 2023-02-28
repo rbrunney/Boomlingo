@@ -62,6 +62,12 @@ public class SocketHandler extends TextWebSocketHandler {
             }
         } else if(messageBody.keySet().contains("offer")){
             roomToUse.setUserSession(session);
+        }else if(messageBody.keySet().contains("ice_candidate")){
+            for(WebSocketSession sessionToSendTo : roomToUse.getSessions()){
+                if(sessionToSendTo.isOpen()){
+                    sessionToSendTo.sendMessage(message);
+                }
+            }
         }
 
 //        for (WebSocketSession webSocketSession : sessions) {
