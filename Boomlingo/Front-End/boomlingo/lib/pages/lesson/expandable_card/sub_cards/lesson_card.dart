@@ -20,6 +20,25 @@ class LessonCard extends StatefulWidget {
 }
 
 class _LessonCardState extends State<LessonCard> {
+  List<Widget> excerciseDots = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (int i = 0; i < widget.totalExcercise; i++) {
+      excerciseDots.add(Container(
+        width: 12,
+        height: 12,
+        margin: const EdgeInsets.symmetric(horizontal: 2),
+        decoration: const BoxDecoration(
+          color: Color(global_style.lightBlueAccentColor),
+          shape: BoxShape.circle,
+        ),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -67,29 +86,48 @@ class _LessonCardState extends State<LessonCard> {
                                     '${widget.totalRewardPoints}'),
                               ],
                             )),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          margin: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text(
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: global_style.textFont,
-                                  fontWeight: FontWeight.bold),
-                              '${widget.totalExcercise} exercises'),
+                        Row(
+                          children: [
+                            Container(
+                              alignment: Alignment.centerLeft,
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold),
+                                  '${widget.totalExcercise} exercises'),
+                            ),
+                            const Spacer(),
+                            Container(
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  children: excerciseDots,
+                                ))
+                          ],
                         ),
                         InkWell(
-                          onTap: () {}, 
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 10),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Card(
-                                color: Color(global_style.darkBlueAccentColor),
-                                child: Text('Text', style: TextStyle(color: Color(global_style.whiteAccentColor)))
-                              )
-                            )
-                          )
-                        )
+                            onTap: () {},
+                            child: Container(
+                                decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20))),
+                                margin: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: SizedBox(
+                                    height: 40,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Card(
+                                        color: const Color(
+                                            global_style.darkBlueAccentColor),
+                                        child: Container(
+                                            alignment: Alignment.center,
+                                            child: const Text('Begin',
+                                                style: TextStyle(
+                                                    color: Color(global_style
+                                                        .whiteAccentColor))))))))
                       ],
                     )),
               ],
