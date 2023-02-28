@@ -37,7 +37,7 @@ class _PageNavigation extends State<PageNavigation> {
                   _selectedIndex = newPage;
                 });
               },
-              children: const [HomePage(), LessonPage(), AccountPage()],
+              children: const [HomePage(), LessonPage(), LessonPage(), AccountPage()],
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(

@@ -80,6 +80,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(global_style.pageBackgroundColor),
             body: SingleChildScrollView(
       child: Column(
         children: [

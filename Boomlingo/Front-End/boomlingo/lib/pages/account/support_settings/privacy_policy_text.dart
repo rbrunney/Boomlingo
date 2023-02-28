@@ -1,6 +1,7 @@
 import 'package:boomlingo/pages/account/support_settings/privacy_policy.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
 import 'package:boomlingo/util/widgets/to_previous_page.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:flutter/material.dart';
 
 class PrivacyPolicy extends StatelessWidget {
@@ -10,6 +11,7 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(global_style.pageBackgroundColor),
           body: SingleChildScrollView(
             child: Column(
               children: [
