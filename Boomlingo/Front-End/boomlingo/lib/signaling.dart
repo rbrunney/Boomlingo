@@ -25,7 +25,9 @@ class Signaling {
   StreamStateCallback? onAddRemoteStream;
 
   final signalingChannel = WebSocketChannel.connect(
-    Uri(scheme: "ws", host: "10.0.2.2", port: 8080, path: "/socket"),
+    // Uri(scheme: "ws", host: "localhost", port: 10.0.2.2, path: "/socket"),
+    Uri(scheme: "ws", host: "localhost", port: 8080, path: "/socket"),
+
   );
 
   initChannel() async {
@@ -33,12 +35,37 @@ class Signaling {
       print("Channel ready");
     });
     // signalingChannel.sink.add("random nonsense");
-    signalingChannel.stream.listen((event) {
+    signalingChannel.stream.listen((event) async {
       print(event);
+      Map<String, dynamic> eventJson = await jsonDecode(event);
+      if (eventJson.containsKey("offer")) {
+        var offerJson = eventJson["offer"];
+        var offer = RTCSessionDescription(offerJson["sdp"], offerJson["type"]);
+        await peerConnection?.setRemoteDescription(offer);
+      } else if (eventJson.containsKey("answer")) {
+        if (peerConnection?.getRemoteDescription() != null) {
+          var answer = RTCSessionDescription(
+            eventJson['answer']['sdp'],
+            eventJson['answer']['type'],
+          );
+
+          print("Someone tried to connect");
+          await peerConnection?.setRemoteDescription(answer);
+        }
+      } else if (eventJson.containsKey("ice_candidate")) {
+        print('Got new remote ICE candidate: ${eventJson}');
+        peerConnection!.addCandidate(
+          RTCIceCandidate(
+            eventJson['ice_candidate']['candidate'],
+            eventJson['ice_candidate']['sdpMid'],
+            eventJson['ice_candidate']['sdpMLineIndex'],
+          ),
+        );
+      }
     });
   }
 
-  Future<String> createRoom(RTCVideoRenderer remoteRenderer) async {
+  createRoom(RTCVideoRenderer remoteRenderer, {String userName = ""}) async {
     print("Create peer connection with config $config");
 
     peerConnection = await createPeerConnection(config);
@@ -58,6 +85,15 @@ class Signaling {
       });
     };
 
+    peerConnection?.onIceCandidate = (RTCIceCandidate candidate) {
+      print('Got candidate: ${candidate.toMap()}');
+      Map<String, dynamic> candidateMap = {"ice_candidate": candidate.toMap()};
+
+      String iceJson = json.encode(candidateMap);
+
+      signalingChannel.sink.add(iceJson);
+    };
+
     RTCSessionDescription offer = await peerConnection!.createOffer();
     await peerConnection!.setLocalDescription(offer);
     //Be sure to modify to add a username later to the jsonbody
@@ -68,8 +104,33 @@ class Signaling {
     print(offerJson);
 
     signalingChannel.sink.add(offerJson);
+  }
 
-    return "";
+  joinRoom(RTCVideoRenderer remoteVideo, {String roomID = ""}) async {
+    peerConnection = await createPeerConnection(config);
+
+    registerPeerConnectionListeners();
+
+    localStream?.getTracks().forEach((track) {
+      peerConnection?.addTrack(track, localStream!);
+    });
+
+    peerConnection?.onTrack = (RTCTrackEvent event) {
+      print("got remote track ${event.streams[0]}");
+      event.streams[0].getTracks().forEach((track) {
+        print("adding tracks to remote stream; track: $track");
+        remoteStream?.addTrack(track);
+      });
+    };
+
+    var answer = await peerConnection!.createAnswer();
+    print("created answer: $answer");
+
+    Map<String, dynamic> answerMap = {"answer": answer.toMap()};
+
+    String answerJson = json.encode(answerMap);
+
+    signalingChannel.sink.add(answerJson);
   }
 
   Future<void> openUserMedia(
