@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     
     mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM lessons"
+    sql = "SELECT * FROM answers"
 
     mycursor.execute(sql)
 

@@ -11,12 +11,17 @@ def lambda_handler(event, context):
     
     mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM lessons"
+    sql = "DELETE FROM answers WHERE answer = %s"
+    adr = (event["answer"],)
 
-    mycursor.execute(sql)
+    mycursor.execute(sql, adr)
 
-    myresult = mycursor.fetchall()
+    mydb.commit()
 
-    return myresult
+    return (mycursor.rowcount, "record deleted.")
 
-# print(lambda_handler("None","None"))
+# test_vals = {
+#     "answer":"Doin' what dogs do"
+#     }
+
+# lambda_handler(test_vals, "None")

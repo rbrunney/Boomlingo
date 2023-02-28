@@ -11,12 +11,18 @@ def lambda_handler(event, context):
     
     mycursor = mydb.cursor()
 
-    sql = "SELECT * FROM lessons"
+    sql = "UPDATE answers SET answer = %s WHERE answer_id = %s"
+    adr = (event["newValue"], event["answer_id"])
 
-    mycursor.execute(sql)
+    mycursor.execute(sql, adr)
 
-    myresult = mycursor.fetchall()
+    mydb.commit()
 
-    return myresult
+    return ("Record Updated")
 
-# print(lambda_handler("None","None"))
+# test_vals = {
+#     "newValue":"Slang",
+#     "answer_id":"1"
+#     }
+
+# lambda_handler(test_vals, "None")
