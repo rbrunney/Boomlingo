@@ -8,7 +8,7 @@ def lambda_handler(event, context):
         password="MyBedRightNow",
         database="boomlingo"
     )
-    
+
     mycursor = mydb.cursor()
 
     sql = "INSERT INTO answers (answer) VALUES (%s)"
@@ -19,7 +19,7 @@ def lambda_handler(event, context):
     return(mycursor.rowcount, "record inserted.")
 
 test_vals = {
-    "answer":"Doin' what dogs do"
+    "answer":"Ligma balls"
     }
 
 lambda_handler(test_vals, "None")

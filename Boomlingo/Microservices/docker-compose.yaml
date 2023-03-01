@@ -1,0 +1,98 @@
+version: '3.9'
+services:
+  answer_create:
+      build: ./answer_create
+      image: answer_create:1.0
+  answer_delete:
+      build: ./answer_delete
+      image: answer_delete:1.0
+  answer_read_all:
+      build: ./answer_read_all
+      image: answer_read_all:1.0
+  answer_read_one:
+      build: ./answer_read_one
+      image: answer_read_one:1.0
+  answer_update:
+      build: ./answer_update
+      image: answer_update:1.0
+  course_create:
+      build: ./course_create
+      image: course_create:1.0
+  course_delete:
+      build: ./course_delete
+      image: course_delete:1.0
+  course_read_all:
+      build: ./course_read_all
+      image: course_read_all:1.0
+  course_read_one:
+      build: ./course_read_one
+      image: course_read_one:1.0
+  course_update_name:
+      build: ./course_update_name
+      image: course_update_name:1.0
+  lesson_create:
+      build: ./lesson_create
+      image: lesson_create:1.0
+  lesson_delete:
+      build: ./lesson_delete
+      image: lesson_delete:1.0
+  lesson_read_all:
+      build: ./lesson_read_all
+      image: lesson_read_all:1.0
+  lesson_read_one:
+      build: ./lesson_read_one
+      image: lesson_read_one:1.0
+  lesson_read_course:
+      build: ./lesson_read_course
+      image: lesson_read_course:1.0
+  lesson_update_name:
+      build: ./lesson_update_name
+      image: lesson_update_name:1.0
+  question_create:
+      build: ./question_create
+      image: question_create:1.0
+  question_delete:
+      build: ./question_delete
+      image: question_delete:1.0
+  question_read_all:
+      build: ./question_read_all
+      image: question_read_all:1.0
+  question_read_one:
+      build: ./question_read_one
+      image: question_read_one:1.0
+  question_read_course:
+      build: ./question_read_course
+      image: question_read_lesson:1.0
+  question_update_name:
+      build: ./question_update_name
+      image: question_update_name:1.0
+  user_create:
+      build: ./user_create
+      image: user_create:1.0
+  user_delete:
+      build: ./user_delete
+      image: user_delete:1.0
+  user_read_all:
+      build: ./user_read_all
+      image: user_read_all:1.0
+  user_read_one:
+      build: ./user_read_one
+      image: user_read_one:1.0
+  user_update_dob:
+      build: ./user_update_dob
+      image: user_update_dob:1.0
+  user_update_email:
+      build: ./user_update_email
+      image: user_update_email:1.0
+  user_update_firstname:
+      build: ./user_update_firstname
+      image: user_update_firstname:1.0
+  user_update_lastname:
+      build: ./user_update_lastname
+      image: user_update_lastname:1.0
+  user_update_password:
+      build: ./user_update_password
+      image: user_update_password:1.0
+  webscraper:
+      build: ./webscraper
+      image: webscraper:1.0
