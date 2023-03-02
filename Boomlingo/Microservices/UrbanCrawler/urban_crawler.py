@@ -16,7 +16,7 @@ def crawl_urban_dictionary(search_term):
         soup = BeautifulSoup(page, 'html.parser')
     except:
         return {
-            "message" : f"Could not find {search_term}"
+            "message" : f"Could not find {search_term.replace('%20', ' ')}"
         }
     
     definition_card = soup.find('div', {'class': {'p-5 md:p-8'}})

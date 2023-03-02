@@ -59,6 +59,8 @@ class _LoginPageState extends State<LoginPage> {
             hintText: "Enter Username...",
             labelText: "Enter Username",
             prefixIcon: Icons.account_circle_outlined,
+            
+            prefixIconPress: () {},
             textController: _usernameController,
             errorText: usernameErrorText,
           ),
@@ -71,6 +73,8 @@ class _LoginPageState extends State<LoginPage> {
             prefixIcon: Icons.lock_outline,
             suffixIcon: Icons.visibility_off_outlined,
             pressedSuffixIcon: Icons.visibility_outlined,
+            
+            prefixIconPress: () {},
             textController: _passwordController,
             errorText: passwordErrorText,
           ),

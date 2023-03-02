@@ -14,38 +14,40 @@ class CustomTextField extends StatefulWidget {
   final IconData suffixIcon;
   final IconData pressedSuffixIcon;
   final TextInputType textInputType;
+  final Function()? prefixIconPress;
   final Function(String value) textCallBack;
   final List<TextInputFormatter> textFormatters;
   final TextEditingController textController;
 
-  CustomTextField({
-        Key? key,
-    this.hintText = '',
-    this.labelText = '',
-    this.errorText = '',
-    this.hasSuffixIcon = false,
-    this.isObscure = false,
-    this.verticalMargin = 15,
-    this.maxLines = 1,
-    this.textInputType = TextInputType.text,
-    this.textFormatters = const [],
-    this.prefixIcon = Icons.abc_outlined,
-    this.suffixIcon = Icons.abc_outlined,
-    this.pressedSuffixIcon = Icons.abc_outlined,
-    required this.textCallBack,
-    required this.textController
-  }) : super(key: key);
+  CustomTextField(
+      {Key? key,
+      this.hintText = '',
+      this.labelText = '',
+      this.errorText = '',
+      this.hasSuffixIcon = false,
+      this.isObscure = false,
+      this.verticalMargin = 15,
+      this.maxLines = 1,
+      this.textInputType = TextInputType.text,
+      this.textFormatters = const [],
+      this.prefixIcon = Icons.abc_outlined,
+      this.suffixIcon = Icons.abc_outlined,
+      this.pressedSuffixIcon = Icons.abc_outlined,
+      required this.prefixIconPress,
+      required this.textCallBack,
+      required this.textController})
+      : super(key: key);
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(vertical: widget.verticalMargin, horizontal: 15),
+        margin: EdgeInsets.symmetric(
+            vertical: widget.verticalMargin, horizontal: 15),
         child: TextField(
           maxLines: widget.maxLines,
           onChanged: widget.textCallBack,
@@ -54,28 +56,32 @@ class _CustomTextFieldState extends State<CustomTextField> {
           keyboardType: widget.textInputType,
           inputFormatters: widget.textFormatters,
           decoration: InputDecoration(
-              prefixIcon: Icon(widget.prefixIcon, color: Colors.grey),
-              suffixIcon: widget.hasSuffixIcon ? IconButton(
-                  icon: widget.isObscure ? Icon(widget.suffixIcon)  : Icon(widget.pressedSuffixIcon),
-                  color: Colors.grey,
-                onPressed: () {
-                  setState(() {
-                    widget.isObscure = !widget.isObscure;
-                  });
-                },
-              ) : null,
+              prefixIcon: IconButton(
+                onPressed: widget.prefixIconPress,
+                icon: Icon(widget.prefixIcon, color: Colors.grey),
+              ),
+              suffixIcon: widget.hasSuffixIcon
+                  ? IconButton(
+                      icon: widget.isObscure
+                          ? Icon(widget.suffixIcon)
+                          : Icon(widget.pressedSuffixIcon),
+                      color: Colors.grey,
+                      onPressed: () {
+                        setState(() {
+                          widget.isObscure = !widget.isObscure;
+                        });
+                      },
+                    )
+                  : null,
               focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey)
-              ),
+                  borderSide: BorderSide(color: Colors.grey)),
               enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey)
-              ),
+                  borderSide: BorderSide(color: Colors.grey)),
               hintText: widget.hintText,
               labelText: widget.labelText,
-              errorText: widget.textController.text.isEmpty ? null : widget.errorText,
-              labelStyle: const TextStyle(color: Colors.grey)
-          ),
-        )
-    );
+              errorText:
+                  widget.textController.text.isEmpty ? null : widget.errorText,
+              labelStyle: const TextStyle(color: Colors.grey)),
+        ));
   }
 }

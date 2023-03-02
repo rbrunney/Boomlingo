@@ -76,6 +76,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             pressedSuffixIcon: Icons.visibility_outlined,
             errorText: newPassErrorText,
             prefixIcon: Icons.lock_outline,
+            
+            prefixIconPress: () {},
             textController: newPasswordController),
         CustomTextField(
             textCallBack: (value) {},
@@ -87,6 +89,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
             pressedSuffixIcon: Icons.visibility_outlined,
             errorText: confirmNewPassErrorText,
             prefixIcon: Icons.lock_outline,
+            
+            prefixIconPress: () {},
             textController: confirmNewPasswordController),
         Container(
             margin: const EdgeInsets.symmetric(vertical: 10),

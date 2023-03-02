@@ -102,6 +102,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
               hintText: 'Enter First Name...',
               errorText: null,
               prefixIcon: MaterialCommunityIcons.account_edit_outline,
+            prefixIconPress: () {},
               textController: fnameController),
           CustomTextField(
               textCallBack: (value) {},
@@ -109,6 +110,8 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
               hintText: 'Enter Last Name...',
               errorText: null,
               prefixIcon: MaterialCommunityIcons.account_edit_outline,
+              
+            prefixIconPress: () {},
               textController: lnameController),
           CustomTextField(
               textCallBack: (value) {},
@@ -116,6 +119,7 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
               hintText: 'MM-DD-YYYY',
               errorText: birthdayErrorText,
               prefixIcon: Icons.calendar_today_outlined,
+            prefixIconPress: () {},
               textController: birthdayController),
           Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
