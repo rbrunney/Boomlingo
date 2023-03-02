@@ -24,10 +24,24 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
     _remoteRenderer.initialize();
     // signaler.createRoom(_remoteRenderer);
     signaler.initChannel();
+    print("initial tracks");
+    if (_remoteRenderer.srcObject != null) {
+      print(_remoteRenderer.srcObject!.getTracks());
+    }
     signaler.onAddRemoteStream = ((stream) {
+      print("changing remote renderer source");
+      stream.getTracks().forEach((track) {
+        if (track.muted!) {
+          track.enabled = true;
+        }
+      });
+      setState(() {});
       _remoteRenderer.srcObject = stream;
       setState(() {});
+      print("updated tracks");
+      print(_remoteRenderer.srcObject!.getTracks());
     });
+
     // signaler.initRTC(_remoteRenderer);
     super.initState();
   }
@@ -50,9 +64,13 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
       body: Column(
         children: [
           SizedBox(height: 8),
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                height: 15,
+                width: 8,
+              ),
               ElevatedButton(
                 onPressed: () {
                   signaler.openUserMedia(_localRenderer, _remoteRenderer);
@@ -76,11 +94,23 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                 onPressed: () {
                   // Add roomId
                   signaler.joinRoom(
+                      // textEditingController.text,
+                      );
+                },
+                child: Text("Join room"),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // Add roomId
+                  signaler.createAnswer(
                     _remoteRenderer,
                     // textEditingController.text,
                   );
                 },
-                child: Text("Join room"),
+                child: Text("Create answer and connect"),
               ),
               SizedBox(
                 width: 8,
