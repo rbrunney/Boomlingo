@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import 'add_friend_card.dart';
+import 'representative-card.dart';
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -27,7 +27,7 @@ class _VideoCallPageState extends State<VideoCallPage>
           title: Row(
         children: [
           if (!_isActive)
-            Text("Search User",
+            Text("Search Representative",
                 style: Theme.of(context).appBarTheme.titleTextStyle),
           Expanded(
             child: Align(
@@ -50,7 +50,7 @@ class _VideoCallPageState extends State<VideoCallPage>
                                   setState(() {
                                     userSearch.clear();
                                   });
-                                  userSearch.add(AddFriendCard(
+                                  userSearch.add(RepresentativeCard(
                                     userId: 1,
                                     username: "Alex Turro",
                                   ));

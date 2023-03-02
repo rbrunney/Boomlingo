@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:boomlingo/util/style/global_style.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -23,25 +24,32 @@ class Signaling {
   String? roomID;
   String? currentRoomText;
   StreamStateCallback? onAddRemoteStream;
+  RTCSessionDescription? offerSdpDescription;
 
   final signalingChannel = WebSocketChannel.connect(
-    // Uri(scheme: "ws", host: "localhost", port: 10.0.2.2, path: "/socket"),
-    Uri(scheme: "ws", host: "localhost", port: 8080, path: "/socket"),
-
+    Uri(scheme: "ws", host: "10.0.2.2", port: 8080, path: "/socket"),
+    // Uri(scheme: "ws", host: "localhost", port: 8080, path: "/socket"),
   );
 
   initChannel() async {
     await signalingChannel.ready.then((value) {
       print("Channel ready");
     });
+
+    peerConnection = await createPeerConnection(config);
+
+    registerPeerConnectionListeners();
+
     // signalingChannel.sink.add("random nonsense");
     signalingChannel.stream.listen((event) async {
       print(event);
+      print("signaling channel got a message back!");
       Map<String, dynamic> eventJson = await jsonDecode(event);
       if (eventJson.containsKey("offer")) {
         var offerJson = eventJson["offer"];
-        var offer = RTCSessionDescription(offerJson["sdp"], offerJson["type"]);
-        await peerConnection?.setRemoteDescription(offer);
+        offerSdpDescription =
+            RTCSessionDescription(offerJson["sdp"], offerJson["type"]);
+        await peerConnection?.setRemoteDescription(offerSdpDescription!);
       } else if (eventJson.containsKey("answer")) {
         if (peerConnection?.getRemoteDescription() != null) {
           var answer = RTCSessionDescription(
@@ -49,8 +57,16 @@ class Signaling {
             eventJson['answer']['type'],
           );
 
-          print("Someone tried to connect");
+          print("Answer received!");
           await peerConnection?.setRemoteDescription(answer);
+
+          peerConnection?.onTrack = (RTCTrackEvent event) {
+            print("got remote track ${event.streams[0]}");
+            event.streams[0].getTracks().forEach((track) {
+              print("adding tracks to remote stream; track: $track");
+              remoteStream?.addTrack(track);
+            });
+          };
         }
       } else if (eventJson.containsKey("ice_candidate")) {
         print('Got new remote ICE candidate: ${eventJson}');
@@ -106,31 +122,49 @@ class Signaling {
     signalingChannel.sink.add(offerJson);
   }
 
-  joinRoom(RTCVideoRenderer remoteVideo, {String roomID = ""}) async {
+  joinRoom({String roomID = ""}) async {
+    Map<String, dynamic> joinMap = {
+      "join_room": "room_name"
+    }; //To be updated to use usernames
+
+    String joinJson = json.encode(joinMap);
+
+    print(joinJson);
+    signalingChannel.sink.add(joinJson);
+  }
+
+  createAnswer(RTCVideoRenderer remoteVideo, {String roomID = ""}) async {
+
     peerConnection = await createPeerConnection(config);
 
     registerPeerConnectionListeners();
 
-    localStream?.getTracks().forEach((track) {
-      peerConnection?.addTrack(track, localStream!);
-    });
+    if (offerSdpDescription != null) {
+      await peerConnection?.setRemoteDescription(offerSdpDescription!);
 
-    peerConnection?.onTrack = (RTCTrackEvent event) {
-      print("got remote track ${event.streams[0]}");
-      event.streams[0].getTracks().forEach((track) {
-        print("adding tracks to remote stream; track: $track");
-        remoteStream?.addTrack(track);
+      localStream?.getTracks().forEach((track) {
+        peerConnection?.addTrack(track, localStream!);
       });
-    };
 
-    var answer = await peerConnection!.createAnswer();
-    print("created answer: $answer");
+      // peerConnection?.onTrack = (RTCTrackEvent event) {
+      //   print("got remote track ${event.streams[0]}");
+      //   event.streams[0].getTracks().forEach((track) {
+      //     print("adding tracks to remote stream; track: $track");
+      //     remoteStream?.addTrack(track);
+      //   });
+      // };
 
-    Map<String, dynamic> answerMap = {"answer": answer.toMap()};
+      var answer = await peerConnection!.createAnswer();
+      print("created answer: $answer");
 
-    String answerJson = json.encode(answerMap);
+      Map<String, dynamic> answerMap = {"answer": answer.toMap()};
 
-    signalingChannel.sink.add(answerJson);
+      String answerJson = json.encode(answerMap);
+
+      signalingChannel.sink.add(answerJson);
+    } else {
+      print("Tried to connect to no valid peer");
+    }
   }
 
   Future<void> openUserMedia(

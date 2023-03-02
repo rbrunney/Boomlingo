@@ -5,6 +5,7 @@ import dngo.boomlingo.springwebrtc.Room;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
@@ -46,23 +47,40 @@ public class SocketHandler extends TextWebSocketHandler {
                 roomToUse = new Room();
             }
         }
+        rooms.add(roomToUse);
 
-        if(messageBody.keySet().contains("offer") && messageBody.keySet().contains("username")){
+
+        if(messageBody.keySet().contains("offer")){
             roomToUse.setUserSession(session);
-        } else if (messageBody.keySet().contains("answer") && messageBody.keySet().contains("username")) {
-            roomToUse.getSessions().add(session);
-            if(roomToUse.getUserSession() != null && roomToUse.getUserSession().isOpen()){
-                roomToUse.getUserSession().sendMessage(message);
-            }
-        } else if (messageBody.keySet().contains("answer")) {
-            for(WebSocketSession sessionToSendTo : roomToUse.getSessions()){
+            roomToUse.setMessage(message);
+            for (WebSocketSession sessionToSendTo: roomToUse.getSessions()){
                 if(sessionToSendTo.isOpen()){
                     sessionToSendTo.sendMessage(message);
                 }
             }
-        } else if(messageBody.keySet().contains("offer")){
-            roomToUse.setUserSession(session);
-        }else if(messageBody.keySet().contains("ice_candidate")){
+        } else if (messageBody.keySet().contains("answer")) {
+            roomToUse.getSessions().add(session);
+            if (roomToUse.getUserSession() != null && roomToUse.getUserSession().isOpen()) {
+                roomToUse.getUserSession().sendMessage(message);
+            }
+            for(WebSocketSession sessionToSendTo : roomToUse.getSessions()){
+                if(sessionToSendTo.isOpen() && !sessionToSendTo.getId().equals(session.getId())){
+                    sessionToSendTo.sendMessage(message);
+                }
+            }
+        } else if(messageBody.keySet().contains("join_room")){
+            roomToUse.getSessions().add(session);
+            for(WebSocketSession sessionToSendTo : roomToUse.getSessions()){
+                if(sessionToSendTo.isOpen()){
+                    sessionToSendTo.sendMessage(roomToUse.getMessage());
+                    for(WebSocketMessage ice_candidate : roomToUse.getIceCandidates()){
+                        sessionToSendTo.sendMessage(ice_candidate);
+                    }
+                }
+            }
+//            session.sendMessage(message);
+        } else if(messageBody.keySet().contains("ice_candidate")){
+            roomToUse.getIceCandidates().add(message);
             for(WebSocketSession sessionToSendTo : roomToUse.getSessions()){
                 if(sessionToSendTo.isOpen()){
                     sessionToSendTo.sendMessage(message);
