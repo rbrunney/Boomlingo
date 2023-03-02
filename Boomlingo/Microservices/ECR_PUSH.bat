@@ -106,3 +106,5 @@ docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_update_p
 ::Webscraper
 docker tag webscraper:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:webscraper
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:webscraper
+
+pause
