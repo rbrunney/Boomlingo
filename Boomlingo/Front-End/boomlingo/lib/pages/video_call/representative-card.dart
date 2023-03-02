@@ -2,18 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-class AddFriendCard extends StatefulWidget {
-  AddFriendCard({Key? key, this.userId = 0, this.username = 'Rxittles'})
+import '../../rtc_stateful_display.dart';
+
+class RepresentativeCard extends StatefulWidget {
+  RepresentativeCard({Key? key, this.userId = 0, this.username = 'Rxittles'})
       : super(key: key);
 
   int userId;
   String username;
 
   @override
-  State<AddFriendCard> createState() => _AddFriendCardState();
+  State<RepresentativeCard> createState() => _RepresentativeCardState();
 }
 
-class _AddFriendCardState extends State<AddFriendCard> {
+class _RepresentativeCardState extends State<RepresentativeCard> {
   
   @override
   Widget build(BuildContext context) {
@@ -43,10 +45,13 @@ class _AddFriendCardState extends State<AddFriendCard> {
                       ),
                       const Spacer(),
                       IconButton(
-                        icon: const Icon(Icons.add),
+                        icon: const Icon(Icons.call_rounded),
                         alignment: Alignment.centerLeft,
                         onPressed: () async {
-                          
+                          Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                    builder: (BuildContext context) => const RTCVideoDisplay()));
                         },
                       ),
                     ],
