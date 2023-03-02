@@ -20,8 +20,8 @@ def lambda_handler(event, context):
 
     return (mycursor.rowcount, "record deleted.")
 
-test_vals = {
-    "lesson_name":"Your Mom"
-    }
+# test_vals = {
+#     "lesson_name":"Your Mom"
+#     }
 
-lambda_handler(test_vals, "None")
+# lambda_handler(test_vals, "None")

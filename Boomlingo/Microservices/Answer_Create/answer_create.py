@@ -18,8 +18,8 @@ def lambda_handler(event, context):
 
     return(mycursor.rowcount, "record inserted.")
 
-test_vals = {
-    "answer":"Ligma balls"
-    }
+# test_vals = {
+#     "answer":"Ligma balls"
+#     }
 
-lambda_handler(test_vals, "None")
+# lambda_handler(test_vals, "None")

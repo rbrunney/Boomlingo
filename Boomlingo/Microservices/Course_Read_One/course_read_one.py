@@ -24,4 +24,4 @@ test_vals = {
     "course_name":"Slang"
     }
 
-print(lambda_handler(test_vals, "None"))
+# print(lambda_handler(test_vals, "None"))

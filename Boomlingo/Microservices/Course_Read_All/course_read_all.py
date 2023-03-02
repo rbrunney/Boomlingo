@@ -19,4 +19,4 @@ def lambda_handler(event, context):
 
     return myresult
 
-print(lambda_handler("None","None"))
+# print(lambda_handler("None","None"))
