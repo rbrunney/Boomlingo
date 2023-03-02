@@ -25,10 +25,10 @@ docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_create
 docker tag course_delete:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_delete
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_delete
 
-docker tag course_read_all:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomling:course_read_all
+docker tag course_read_all:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_read_all
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_read_all
 
-docker tag course_read_one:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomling:course_read_one
+docker tag course_read_one:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_read_one
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_read_one
 
 docker tag course_update_name:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:course_update_name
@@ -82,7 +82,7 @@ docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_create
 docker tag user_delete:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_delete
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_delete
 
-docker tag user_read_all:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_ruser_read_allead_all
+docker tag user_read_all:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_read_all
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_read_all
 
 docker tag user_read_one:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:user_read_one
