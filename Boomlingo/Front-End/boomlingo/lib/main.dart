@@ -1,5 +1,6 @@
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
 import 'package:boomlingo/pages/login/login_page.dart';
+import 'package:boomlingo/pages/landing/landing_page.dart';
 import 'package:boomlingo/util/page_navigation.dart';
 import 'package:flutter/material.dart';
 import 'rtc_stateful_display.dart';
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       title: 'Flutter Demo',
       // home: LoginPage()
-      home: RTCVideoDisplay()
+      // home: RTCVideoDisplay()
       // home: PageNavigation()
+      home: LandingPage()
       );
   }
 }
