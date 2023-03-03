@@ -59,7 +59,9 @@ public class SocketHandler extends TextWebSocketHandler {
                 }
             }
         } else if (messageBody.keySet().contains("answer")) {
-            roomToUse.getSessions().add(session);
+            if(roomToUse.getSessions().stream().noneMatch(s -> s.getId().equals(session.getId()))){
+                roomToUse.getSessions().add(session);
+            }
             if (roomToUse.getUserSession() != null && roomToUse.getUserSession().isOpen()) {
                 roomToUse.getUserSession().sendMessage(message);
             }

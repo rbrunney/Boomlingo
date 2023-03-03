@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: LoginPage()
-      // home: RTCVideoDisplay()
+      // home: LoginPage()
+      home: RTCVideoDisplay()
       // home: PageNavigation()
       );
   }
