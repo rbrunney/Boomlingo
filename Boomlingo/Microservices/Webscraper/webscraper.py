@@ -1,12 +1,13 @@
 from urllib.request import urlopen
 from profanity import profanity
 from bs4 import BeautifulSoup
+import json
 
 def lambda_handler(event, context):
 
     search_term = event['search_term']
     
-    return crawl_urban_dictionary(search_term.replace(' ', '%20'))
+    return json.dumps(crawl_urban_dictionary(search_term.replace(' ', '%20')))
 
 def crawl_urban_dictionary(search_term):
 

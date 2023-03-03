@@ -18,10 +18,10 @@ def lambda_handler(event, context):
 
     myresult = mycursor.fetchall()
 
-    return myresult
+    return json.dumps(myresult)
 
-test_vals = {
-    "course_name":"Slang"
-    }
+# test_vals = {
+#     "course_name":"Slang"
+#     }
 
 # print(lambda_handler(test_vals, "None"))

@@ -54,11 +54,11 @@ docker tag lesson_update_name:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/b
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:lesson_update_name
 
 ::Question
-docker tag question_create:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:lesson_create
-docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:lesson_create
+docker tag question_create:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_create
+docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_create
 
-docker tag question_delete:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:lesson_delete
-docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:lesson_delete
+docker tag question_delete:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_delete
+docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_delete
 
 docker tag question_read_all:1.0 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_read_all
 docker push 126489223387.dkr.ecr.us-west-2.amazonaws.com/boomlingo:question_read_all
