@@ -26,9 +26,12 @@ class Signaling {
   StreamStateCallback? onAddRemoteStream;
   RTCSessionDescription? offerSdpDescription;
 
-  final signalingChannel = WebSocketChannel.connect(
-    // Uri(scheme: "ws", host: "10.0.2.2", port: 8080, path: "/socket"),
-    Uri(scheme: "ws", host: "localhost", port: 8080, path: "/socket"),
+  final signalingUri = Uri.parse("https://boomlingowebrtc.azurewebsites.net/socket/");
+
+
+  final signalingChannel = WebSocketChannel.connect(Uri()
+    // signalingUri
+    // Uri(scheme: "ws", host: "localhost", port: 8080, path: "/socket"),
   );
 
   initChannel() async {
