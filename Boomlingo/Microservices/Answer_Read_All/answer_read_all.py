@@ -9,7 +9,7 @@ def lambda_handler(event, context):
         database="boomlingo"
     )
     
-    mycursor = mydb.cursor()
+    mycursor = mydb.cursor(dictionary=True)
 
     sql = "SELECT * FROM answers"
 
