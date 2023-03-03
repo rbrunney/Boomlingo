@@ -15,8 +15,6 @@ def lambda_handler(event, context):
 
     mycursor.execute(sql)
 
-    myresult = mycursor.fetchall()
 
-    return json.dumps(myresult)
 
-# print(lambda_handler("None","None"))
+#print(lambda_handler("None","None"))

@@ -18,7 +18,7 @@ def lambda_handler(event, context):
 
     myresult = mycursor.fetchall()
 
-    return json.dumps(myresult)
+    return mycursor.fetchall()
 
 # test_vals = {
 #     "username":"YourMom"
