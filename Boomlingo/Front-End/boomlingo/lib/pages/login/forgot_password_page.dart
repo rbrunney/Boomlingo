@@ -68,6 +68,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           hintText: 'Enter Email...',
           labelText: 'Enter Email',
           prefixIcon: Icons.email_outlined,
+          
+            prefixIconPress: () {},
           textController: emailController,
           errorText: emailErrorText,
         ),

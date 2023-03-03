@@ -7,6 +7,8 @@ import 'package:boomlingo/util/widgets/page_title.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/requests/requests.dart';
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -59,6 +61,8 @@ class _LoginPageState extends State<LoginPage> {
             hintText: "Enter Username...",
             labelText: "Enter Username",
             prefixIcon: Icons.account_circle_outlined,
+            
+            prefixIconPress: () {},
             textController: _usernameController,
             errorText: usernameErrorText,
           ),
@@ -71,6 +75,8 @@ class _LoginPageState extends State<LoginPage> {
             prefixIcon: Icons.lock_outline,
             suffixIcon: Icons.visibility_off_outlined,
             pressedSuffixIcon: Icons.visibility_outlined,
+            
+            prefixIconPress: () {},
             textController: _passwordController,
             errorText: passwordErrorText,
           ),
@@ -97,9 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                   width: MediaQuery.of(context).size.width - 30,
                   child: ElevatedButton(
                       onPressed: () {
-                        
                         // Make Request Login
-                        
+                        Requests().make
                             // Save the JWT tokens to the system.
                             Navigator.push(
                                 context,

@@ -1,6 +1,7 @@
 import 'package:boomlingo/homePage/home_page.dart';
 import 'package:boomlingo/pages/account/account_page.dart';
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
+import 'package:boomlingo/pages/search/search_page.dart';
 import 'package:boomlingo/pages/video_call/video_call_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,7 +39,7 @@ class _PageNavigation extends State<PageNavigation> {
                   _selectedIndex = newPage;
                 });
               },
-              children: const [HomePage(), LessonPage(), VideoCallPage(),  AccountPage()],
+              children: const [HomePage(), SearchPage(), VideoCallPage(),  AccountPage()],
             ),
             bottomNavigationBar: Container(
               decoration: const BoxDecoration(

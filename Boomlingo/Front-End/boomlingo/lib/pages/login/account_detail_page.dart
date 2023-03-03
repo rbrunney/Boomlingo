@@ -1,3 +1,4 @@
+import 'package:boomlingo/pages/login/login_page.dart';
 import 'package:boomlingo/util/widgets/custom_text.dart';
 import 'package:boomlingo/util/widgets/custom_text_field.dart';
 import 'package:boomlingo/util/widgets/page_image.dart';
@@ -6,6 +7,8 @@ import 'package:boomlingo/util/widgets/to_previous_page.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:boomlingo/util/requests/requests.dart';
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 class AccountDetailsPage extends StatefulWidget {
   final String username;
@@ -73,69 +76,94 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
   }
 
   void onSubmit() async {
-    
+    DateTime currentDate = DateTime.now();
+
+    Map<String, dynamic> newAccount = {
+      "username": widget.username,
+      "password": widget.password,
+      "email": widget.email,
+      "firstname": fnameController.text,
+      "lastname": lnameController.text,
+      "DOB": birthdayController.text.replaceAll(RegExp(r'-'), '/'),
+      "joindate": "${currentDate.month}/${currentDate.day}/${currentDate.year}"
+    };
+
+    Requests()
+        .makePostRequest('${global_data.awsBaseLink}/user', newAccount)
+        .then((value) {
+      print(value);
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+          (Route<dynamic> route) => false);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(global_style.pageBackgroundColor),
+            backgroundColor: const Color(global_style.pageBackgroundColor),
             body: SingleChildScrollView(
-      child: Column(
-        children: [
-          const ToPrevPage(),
-          const PageImage(assetImg: 'assets/images/icon.png',  marginTop: 7),
-          const PageTitle(title: 'Final Steps'),
-          CustomText(
-            leftMargin: 15,
-            rightMargin: 15,
-            topMargin: 10,
-            bottomMargin: 10,
-            text:
-                "Almost Finished! We just need a little bit more information about you!",
-            fontSize: 15,
-          ),
-          CustomTextField(
-              textCallBack: (value) {},
-              labelText: 'Enter First Name',
-              hintText: 'Enter First Name...',
-              errorText: null,
-              prefixIcon: MaterialCommunityIcons.account_edit_outline,
-              textController: fnameController),
-          CustomTextField(
-              textCallBack: (value) {},
-              labelText: 'Enter Last Name',
-              hintText: 'Enter Last Name...',
-              errorText: null,
-              prefixIcon: MaterialCommunityIcons.account_edit_outline,
-              textController: lnameController),
-          CustomTextField(
-              textCallBack: (value) {},
-              labelText: 'Enter Birthday',
-              hintText: 'MM-DD-YYYY',
-              errorText: birthdayErrorText,
-              prefixIcon: Icons.calendar_today_outlined,
-              textController: birthdayController),
-          Container(
-              margin: const EdgeInsets.symmetric(vertical: 10),
-              child: SizedBox(
-                  width: MediaQuery.of(context).size.width - 30,
-                  child: ElevatedButton(
-                      onPressed: fnameController.text.isNotEmpty &&
-                              lnameController.text.isNotEmpty &&
-                              birthdayController.text.isNotEmpty
-                          ? onSubmit
-                          : () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Color(global_style.lightBlueAccentColor),
-                      ),
-                      child: Text(
-                        "Create Account",
-                        style: TextStyle(fontFamily: global_style.textFont),
-                      )))),
-        ],
-      ),
-    )));
+              child: Column(
+                children: [
+                  const ToPrevPage(),
+                  const PageImage(
+                      assetImg: 'assets/images/icon.png', marginTop: 7),
+                  const PageTitle(title: 'Final Steps'),
+                  CustomText(
+                    leftMargin: 15,
+                    rightMargin: 15,
+                    topMargin: 10,
+                    bottomMargin: 10,
+                    text:
+                        "Almost Finished! We just need a little bit more information about you!",
+                    fontSize: 15,
+                  ),
+                  CustomTextField(
+                      textCallBack: (value) {},
+                      labelText: 'Enter First Name',
+                      hintText: 'Enter First Name...',
+                      errorText: null,
+                      prefixIcon: MaterialCommunityIcons.account_edit_outline,
+                      prefixIconPress: () {},
+                      textController: fnameController),
+                  CustomTextField(
+                      textCallBack: (value) {},
+                      labelText: 'Enter Last Name',
+                      hintText: 'Enter Last Name...',
+                      errorText: null,
+                      prefixIcon: MaterialCommunityIcons.account_edit_outline,
+                      prefixIconPress: () {},
+                      textController: lnameController),
+                  CustomTextField(
+                      textCallBack: (value) {},
+                      labelText: 'Enter Birthday',
+                      hintText: 'MM-DD-YYYY',
+                      errorText: birthdayErrorText,
+                      prefixIcon: Icons.calendar_today_outlined,
+                      prefixIconPress: () {},
+                      textController: birthdayController),
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      child: SizedBox(
+                          width: MediaQuery.of(context).size.width - 30,
+                          child: ElevatedButton(
+                              onPressed: fnameController.text.isNotEmpty &&
+                                      lnameController.text.isNotEmpty &&
+                                      birthdayController.text.isNotEmpty
+                                  ? onSubmit
+                                  : () {},
+                              style: ElevatedButton.styleFrom(
+                                primary:
+                                    Color(global_style.lightBlueAccentColor),
+                              ),
+                              child: Text(
+                                "Create Account",
+                                style: TextStyle(
+                                    fontFamily: global_style.textFont),
+                              )))),
+                ],
+              ),
+            )));
   }
 }

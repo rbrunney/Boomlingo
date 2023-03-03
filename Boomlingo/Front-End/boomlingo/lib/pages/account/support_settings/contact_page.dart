@@ -34,7 +34,7 @@ class _ContactPageState extends State<ContactPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(global_style.pageBackgroundColor),
+      backgroundColor: const Color(global_style.pageBackgroundColor),
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -52,6 +52,7 @@ class _ContactPageState extends State<ContactPage> {
             prefixIcon: Icons.email_outlined,
             textController: emailController,
             errorText: emailErrorText,
+            prefixIconPress: () {},
           ),
           CustomTextField(
             maxLines: 20,
@@ -60,6 +61,7 @@ class _ContactPageState extends State<ContactPage> {
             labelText: 'Enter Message',
             prefixIcon: Icons.notes_outlined,
             textController: messageController,
+            prefixIconPress: () {},
           ),
           Container(
               margin: const EdgeInsets.symmetric(vertical: 10),

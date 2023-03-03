@@ -70,6 +70,8 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
             textInputType: TextInputType.number,
             textFormatters: [FilteringTextInputFormatter.digitsOnly],
             prefixIcon: Icons.dialpad_outlined,
+            
+            prefixIconPress: () {},
             textController: codeController),
         Container(
             margin: const EdgeInsets.symmetric(vertical: 10),

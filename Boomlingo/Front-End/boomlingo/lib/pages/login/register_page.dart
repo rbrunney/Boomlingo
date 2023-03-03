@@ -102,6 +102,8 @@ class _RegisterPageState extends State<RegisterPage> {
             errorText: null,
             verticalMargin: verticalMargin,
             prefixIcon: Icons.account_circle_outlined,
+            
+            prefixIconPress: () {},
             textController: usernameController),
         CustomTextField(
             textCallBack: (value) {},
@@ -110,6 +112,8 @@ class _RegisterPageState extends State<RegisterPage> {
             errorText: emailErrorText,
             verticalMargin: verticalMargin,
             prefixIcon: Icons.email_outlined,
+            
+            prefixIconPress: () {},
             textController: emailController),
         CustomTextField(
             textCallBack: (value) {},
@@ -122,6 +126,8 @@ class _RegisterPageState extends State<RegisterPage> {
             pressedSuffixIcon: Icons.visibility_outlined,
             verticalMargin: verticalMargin,
             prefixIcon: Icons.lock_outline,
+            
+            prefixIconPress: () {},
             textController: newPasswordController),
         CustomTextField(
             textCallBack: (value) {},
@@ -134,6 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
             pressedSuffixIcon: Icons.visibility_outlined,
             verticalMargin: verticalMargin,
             prefixIcon: Icons.lock_outline,
+            
+            prefixIconPress: () {},
             textController: confirmNewPasswordController),
         Container(
             margin: const EdgeInsets.symmetric(vertical: 10),
