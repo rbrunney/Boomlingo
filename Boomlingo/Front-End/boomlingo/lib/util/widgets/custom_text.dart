@@ -41,6 +41,8 @@ class _CustomTextState extends State<CustomText> {
         alignment: widget.alignment,
         child: Text(widget.text,
             style: TextStyle(
-                fontFamily: global_style.textFont, fontSize: widget.fontSize, fontWeight: widget.isBold ? FontWeight.bold : null)));
+                fontFamily: global_style.textFont,
+                fontSize: widget.fontSize,
+                fontWeight: widget.isBold ? FontWeight.bold : null)));
   }
 }

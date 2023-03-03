@@ -42,6 +42,10 @@ dependencies:
   web_socket_channel: ^2.3.0
   page_transition: ^2.0.9
   http: ^0.13.5
+  google_sign_in: ^6.0.1
+  firebase_auth: ^4.2.9
+  get: ^4.6.5
+  flutter_facebook_auth: ^5.0.8
 
 dev_dependencies:
   flutter_test:
@@ -97,8 +101,7 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
   assets:
     - assets/fonts/Inter/Inter-VariableFont_slnt,wght.ttf
-    - assets/images/icon.png
-    - assets/images/CqBO6J.jpg
+    - assets/images/
   fonts:
     - family: Inter
       fonts:  
