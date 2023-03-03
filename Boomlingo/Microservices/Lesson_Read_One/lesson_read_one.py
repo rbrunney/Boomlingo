@@ -18,8 +18,8 @@ def lambda_handler(event, context):
 
     myresult = mycursor.fetchall()
 
-    return mycursor.fetchall()
-    
+    return myresult
+
 # test_vals = {
 #     "lesson_name":"Your Mom"
 #     }
