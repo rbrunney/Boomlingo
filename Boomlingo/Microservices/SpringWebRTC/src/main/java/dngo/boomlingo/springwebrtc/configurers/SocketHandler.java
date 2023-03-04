@@ -88,6 +88,10 @@ public class SocketHandler extends TextWebSocketHandler {
                     sessionToSendTo.sendMessage(message);
                 }
             }
+        } else if(messageBody.keySet().contains("hangup")){
+            roomToUse.getIceCandidates().clear();
+            roomToUse.getSessions().clear();
+            roomToUse.setUserSession(null);
         }
 
 //        for (WebSocketSession webSocketSession : sessions) {
