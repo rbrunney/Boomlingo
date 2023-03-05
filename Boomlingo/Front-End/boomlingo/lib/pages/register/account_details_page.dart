@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dbcrypt/dbcrypt.dart';
 import 'package:boomlingo/pages/login/login_page.dart';
 import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
@@ -79,27 +80,27 @@ class _AccountDetailsPageState extends State<AccountDetailsPage> {
     if (fnameController.text.isNotEmpty &&
         lnameController.text.isNotEmpty &&
         birthdayErrorText == null) {
+      DateTime currentDate = DateTime.now();
+
       Map<String, dynamic> requestBody = {
         "username": widget.username,
-        "password": widget.password,
-        "firstName": fnameController.text,
-        "lastName": lnameController.text,
-        "birthdate": birthdayController.text,
+        "password": DBCrypt().hashpw(widget.password, DBCrypt().gensalt()),
+        "firstname": fnameController.text,
+        "lastname": lnameController.text,
+        "DOB": birthdayController.text.replaceAll("-", "/"),
         "email": widget.email,
+        "joindate":
+            "${currentDate.month}/${currentDate.day}/${currentDate.year}"
       };
 
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const LoginPage()),
-          (Route<dynamic> route) => false);
-
-      // Requests.makePostRequest('${global_data.awsBaseLink}/invested_account', requestBody)
-      // .then((value) {
-
-      //   requestBody = {
-      //     "username" : userInfo[0],
-      //     "password" : userInfo[1]
-      //   };
-      // );
+      Requests()
+          .makePostRequest("${global_data.awsBaseLink}/user", requestBody)
+          .then((value) {
+        print(value);
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+            (Route<dynamic> route) => false);
+      });
     }
   }
 

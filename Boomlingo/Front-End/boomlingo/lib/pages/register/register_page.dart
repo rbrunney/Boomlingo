@@ -1,10 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:boomlingo/util/widgets/alert.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
 import 'package:boomlingo/util/widgets/page_image.dart';
 import 'package:boomlingo/util/widgets/to_previous_page.dart';
 import 'package:boomlingo/util/widgets/custom_text_field.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:boomlingo/pages/landing/landing_button.dart';
 import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/pages/register/account_details_page.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
@@ -80,15 +81,36 @@ class _RegisterPageState extends State<RegisterPage> {
         confirmNewPassErrorText == null &&
         emailErrorText == null &&
         usernameController.text.isNotEmpty) {
-          Navigator.push(
-              context,
-              PageTransition(
-                  child: AccountDetailsPage(
-                    username: usernameController.text,
-                    password: newPasswordController.text,
-                    email: emailController.text,
-                  ),
-                  type: PageTransitionType.rightToLeftWithFade));
+      Requests().makePostRequest("${global_data.awsBaseLink}/user/get/one",
+          {"username": usernameController.text}).then((value) async {
+        var response = json.decode(value);
+
+        try {
+          var userAccount = response[0];
+          await showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return Alert(
+                    title: "Username Taken!",
+                    message: "Please choose another username!",
+                    buttonMessage: "Ok",
+                    width: 50,
+                  );
+                }
+            );
+        } catch(exception) {
+           Navigator.push(
+            context,
+            PageTransition(
+                child: AccountDetailsPage(
+                  username: usernameController.text,
+                  password: newPasswordController.text,
+                  email: emailController.text,
+                ),
+                type: PageTransitionType.rightToLeftWithFade));
+        }
+        
+      });
     }
   }
 
@@ -96,78 +118,82 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(global_style.pageBackgroundColor),
+            backgroundColor: const Color(global_style.pageBackgroundColor),
             body: SingleChildScrollView(
                 child: Column(
-      children: [
-        const ToPrevPage(),
-        const PageImage(assetImg: 'assets/images/icon.png', marginTop: 7),
-        const PageTitle(title: 'Sign Up'),
-        CustomTextField(
-            textCallBack: (value) {},
-            hintText: "Enter Username...",
-            labelText: "Enter Username",
-            errorText: null,
-            verticalMargin: verticalMargin,
-            prefixIcon: Icons.account_circle_outlined,
-            prefixIconPress: () {},
-            textController: usernameController),
-        CustomTextField(
-            textCallBack: (value) {},
-            hintText: "Enter Email...",
-            labelText: "Enter Email",
-            errorText: emailErrorText,
-            verticalMargin: verticalMargin,
-            prefixIcon: Icons.email_outlined,
-            prefixIconPress: () {},
-            textController: emailController),
-        CustomTextField(
-            textCallBack: (value) {},
-            hintText: "Enter Password...",
-            labelText: "Enter Password",
-            errorText: newPassErrorText,
-            isObscure: true,
-            hasSuffixIcon: true,
-            suffixIcon: Icons.visibility_off_outlined,
-            pressedSuffixIcon: Icons.visibility_outlined,
-            verticalMargin: verticalMargin,
-            prefixIcon: Icons.lock_outline,
-            prefixIconPress: () {},
-            textController: newPasswordController),
-        CustomTextField(
-            textCallBack: (value) {},
-            hintText: "Confirm Password...",
-            labelText: "Confirm Password",
-            errorText: confirmNewPassErrorText,
-            isObscure: true,
-            hasSuffixIcon: true,
-            suffixIcon: Icons.visibility_off_outlined,
-            pressedSuffixIcon: Icons.visibility_outlined,
-            verticalMargin: verticalMargin,
-            prefixIcon: Icons.lock_outline,
-            prefixIconPress: () {},
-            textController: confirmNewPasswordController),
-        Container(
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width - 30,
-                child: ElevatedButton(
-                    onPressed: (usernameController.text.isNotEmpty &&
-                            emailController.text.isNotEmpty &&
-                            newPasswordController.text.isNotEmpty &&
-                            confirmNewPasswordController.text.isNotEmpty)
-                        ? onSubmit
-                        : () {},
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(global_style.lightBlueAccentColor),
-                    ),
-                    child: Text(
-                      "Submit",
-                      style: TextStyle(fontFamily: global_style.textFont, 
-                      color: const Color(global_style.textColor),
-                      fontWeight: FontWeight.bold),
-                    )))),
-      ],
-    ))));
+              children: [
+                const ToPrevPage(),
+                const PageImage(
+                    assetImg: 'assets/images/icon.png', marginTop: 7),
+                const PageTitle(title: 'Sign Up'),
+                CustomTextField(
+                    textCallBack: (value) {},
+                    hintText: "Enter Username...",
+                    labelText: "Enter Username",
+                    errorText: null,
+                    verticalMargin: verticalMargin,
+                    prefixIcon: Icons.account_circle_outlined,
+                    prefixIconPress: () {},
+                    textController: usernameController),
+                CustomTextField(
+                    textCallBack: (value) {},
+                    hintText: "Enter Email...",
+                    labelText: "Enter Email",
+                    errorText: emailErrorText,
+                    verticalMargin: verticalMargin,
+                    prefixIcon: Icons.email_outlined,
+                    prefixIconPress: () {},
+                    textController: emailController),
+                CustomTextField(
+                    textCallBack: (value) {},
+                    hintText: "Enter Password...",
+                    labelText: "Enter Password",
+                    errorText: newPassErrorText,
+                    isObscure: true,
+                    hasSuffixIcon: true,
+                    suffixIcon: Icons.visibility_off_outlined,
+                    pressedSuffixIcon: Icons.visibility_outlined,
+                    verticalMargin: verticalMargin,
+                    prefixIcon: Icons.lock_outline,
+                    prefixIconPress: () {},
+                    textController: newPasswordController),
+                CustomTextField(
+                    textCallBack: (value) {},
+                    hintText: "Confirm Password...",
+                    labelText: "Confirm Password",
+                    errorText: confirmNewPassErrorText,
+                    isObscure: true,
+                    hasSuffixIcon: true,
+                    suffixIcon: Icons.visibility_off_outlined,
+                    pressedSuffixIcon: Icons.visibility_outlined,
+                    verticalMargin: verticalMargin,
+                    prefixIcon: Icons.lock_outline,
+                    prefixIconPress: () {},
+                    textController: confirmNewPasswordController),
+                Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width - 30,
+                        child: ElevatedButton(
+                            onPressed: (usernameController.text.isNotEmpty &&
+                                    emailController.text.isNotEmpty &&
+                                    newPasswordController.text.isNotEmpty &&
+                                    confirmNewPasswordController
+                                        .text.isNotEmpty)
+                                ? onSubmit
+                                : () {},
+                            style: ElevatedButton.styleFrom(
+                              primary: const Color(
+                                  global_style.lightBlueAccentColor),
+                            ),
+                            child: Text(
+                              "Submit",
+                              style: TextStyle(
+                                  fontFamily: global_style.textFont,
+                                  color: const Color(global_style.textColor),
+                                  fontWeight: FontWeight.bold),
+                            )))),
+              ],
+            ))));
   }
 }
