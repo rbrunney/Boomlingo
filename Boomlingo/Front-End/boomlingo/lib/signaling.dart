@@ -142,7 +142,7 @@ class Signaling {
     signalingChannel.sink.add(joinJson);
   }
 
-  createAnswer(RTCVideoRenderer remoteVideo, {String userName = ""}) async {
+  createAnswer(RTCVideoRenderer remoteVideo, {String userName = "default"}) async {
     // if (offerSdpDescription != null) {
     //   await peerConnection.setRemoteDescription(offerSdpDescription!);
     if (peerConnection.getRemoteDescription() != null) {
