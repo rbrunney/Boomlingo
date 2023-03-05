@@ -22,29 +22,20 @@ class _SearchPageState extends State<SearchPage> {
     "example": ""
   };
 
-  Future<Map<String, dynamic>> getWordOfDay() async {
-    Requests()
-        .makeGetRequest("${global_data.awsWebScraperLink}/word_of_day")
-        .then((value) {
-      wordOfDay = json.decode(value);
-      setState(() {
-        
-      });
-    });
-
-    return wordOfDay;
-  }
-
   @override
   Widget build(BuildContext context) {
+    Future<String>? searchRequest = Requests().makeGetRequest(
+        "${global_data.awsWebScraperLink}/word_of_day");
+
     return SafeArea(
         child: Scaffold(
       backgroundColor: const Color(global_style.pageBackgroundColor),
       body: SingleChildScrollView(
-          child: FutureBuilder<Map<String, dynamic>>(
-              future: getWordOfDay(),
+          child: FutureBuilder<String>(
+              future: searchRequest,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  wordOfDay = json.decode(snapshot.data!);
                   return Column(
                     children: [
                       const SearchBar(),
@@ -55,7 +46,9 @@ class _SearchPageState extends State<SearchPage> {
                       DefinitionCard(
                           term: wordOfDay['term'],
                           definition: wordOfDay['definition'],
-                          example: wordOfDay['example'])
+                          example: wordOfDay['example'],
+                          gifLink: wordOfDay['gif_link']  
+                          ),
                     ],
                   );
                 }
