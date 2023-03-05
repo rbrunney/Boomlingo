@@ -88,7 +88,6 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             color: Color(global_style.lightBlueAccentColor),
                           ),
-                          margin: const EdgeInsets.only(left: 10),
                           child: SizedBox(
                               height: 60,
                               width: 100,
@@ -111,7 +110,6 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             color: Color(global_style.lightBlueAccentColor),
                           ),
-                          margin: const EdgeInsets.only(left: 10),
                           child: SizedBox(
                               height: 60,
                               width: 100,
@@ -167,7 +165,6 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                             borderRadius: BorderRadius.all(Radius.circular(20)),
                             color: Colors.red,
                           ),
-                          margin: const EdgeInsets.only(right: 10),
                           child: SizedBox(
                               height: 60,
                               width: 100,
