@@ -55,134 +55,130 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          backgroundColor: const Color(global_style.pageBackgroundColor),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Expanded(
-                  child: ToPrevPage()
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      SizedBox(
+            backgroundColor: const Color(global_style.pageBackgroundColor),
+            body:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              const Expanded(child: ToPrevPage()),
+              Expanded(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.75,
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: RTCVideoView(_localRenderer, mirror: true),
+                    ),
+                    SizedBox(
                         height: MediaQuery.of(context).size.height * 0.75,
                         width: MediaQuery.of(context).size.width * 0.5,
-                        child: RTCVideoView(_localRenderer, mirror: true),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.75,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: RTCVideoView(_remoteRenderer)
-                      )
-                    ],
-                  ),
+                        child: RTCVideoView(_remoteRenderer))
+                  ],
                 ),
-          Expanded(
+              ),
+              Expanded(
+                child: Row(children: [
+                  InkWell(
+                      onTap: () {
+                        setState(() {
+                          signaler.openUserMedia(
+                              _localRenderer, _remoteRenderer);
+                        });
+                      },
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color(global_style.lightBlueAccentColor),
+                          ),
+                          margin: const EdgeInsets.only(left: 10),
+                          child: SizedBox(
+                              height: 60,
+                              width: 100,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(Ionicons.camera_outline),
+                                    Text('Camera')
+                                  ])))),
+                  const Spacer(),
+                  InkWell(
+                      onTap: () {
+                        setState(() {
+                          signaler.createRoom(
+                              _remoteRenderer); //, userName:textEditingController.text);
+                        });
+                      },
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color(global_style.lightBlueAccentColor),
+                          ),
+                          margin: const EdgeInsets.only(left: 10),
+                          child: SizedBox(
+                              height: 60,
+                              width: 100,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(SimpleLineIcons.call_out),
+                                    Text('Call')
+                                  ])))),
+                  const Spacer(),
+                  InkWell(
+                      onTap: () {
+                        setState(() {
+                          signaler.joinRoom(
+                              //userName: textEditingController.text,
+                              );
+                        });
 
-            child: Row(children: [
-            InkWell(
-            onTap: () {
-
-              setState(() {
-                signaler.openUserMedia(_localRenderer, _remoteRenderer);
-              });
-              },
-                  child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
-              color: Color(global_style.lightBlueAccentColor),
-            ),
-            margin: const EdgeInsets.only(left: 10),
-            child: SizedBox(
-                height: 60,
-                width: 100,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Ionicons.camera_outline),
-                      Text('Camera')
-                    ])))),
-            const Spacer(),
-            InkWell(
-                onTap: () {
-
-                  setState(() {
-                    signaler.createRoom(_remoteRenderer, userName:textEditingController.text);
-                  });
-                },
-                child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color(global_style.lightBlueAccentColor),
-                    ),
-                    margin: const EdgeInsets.only(left: 10),
-                    child: SizedBox(
-                        height: 60,
-                        width: 100,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(SimpleLineIcons.call_out),
-                              Text('Call')
-                            ])))),
-            const Spacer(),
-            InkWell(
-                onTap: () {
-                  setState(() {
-                    signaler.joinRoom(
-                          userName:textEditingController.text,
-                        );
-                  });
-
-                  setState(() {
-                    signaler.createAnswer(
-                      _remoteRenderer,
-                        userName:textEditingController.text,
-                    );
-                    if (_remoteRenderer.srcObject != null) {
-                      print("_remoteRenderer updated");
-                      print("Added tracks: ");
-                      print(_remoteRenderer.srcObject!.getTracks());
-                    }
-                  });
-                },
-                child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Color(global_style.lightBlueAccentColor),
-                    ),
-                    child: SizedBox(
-                        height: 60,
-                        width: 100,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(SimpleLineIcons.call_in),
-                              Text('Join')
-                            ])))),
-            const Spacer(),
-            InkWell(
-                onTap: () {
-                  signaler.hangUp(_localRenderer, userName:textEditingController.text);
-                },
-                child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                      color: Colors.red,
-                    ),
-                    margin: const EdgeInsets.only(right: 10),
-                    child: SizedBox(
-                        height: 60,
-                        width: 100,
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(SimpleLineIcons.call_end),
-                              Text('Hang Up')
-                            ]))))
-            ]),
-          )
-    ])));
+                        setState(() {
+                          signaler.createAnswer(
+                            _remoteRenderer,
+                            //userName: textEditingController.text,
+                          );
+                          if (_remoteRenderer.srcObject != null) {
+                            print("_remoteRenderer updated");
+                            print("Added tracks: ");
+                            print(_remoteRenderer.srcObject!.getTracks());
+                          }
+                        });
+                      },
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color(global_style.lightBlueAccentColor),
+                          ),
+                          child: SizedBox(
+                              height: 60,
+                              width: 100,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(SimpleLineIcons.call_in),
+                                    Text('Join')
+                                  ])))),
+                  const Spacer(),
+                  InkWell(
+                      onTap: () {
+                        signaler.hangUp(_localRenderer);
+                        //userName: textEditingController.text);
+                      },
+                      child: Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Colors.red,
+                          ),
+                          margin: const EdgeInsets.only(right: 10),
+                          child: SizedBox(
+                              height: 60,
+                              width: 100,
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Icon(SimpleLineIcons.call_end),
+                                    Text('Hang Up')
+                                  ]))))
+                ]),
+              )
+            ])));
   }
 }
