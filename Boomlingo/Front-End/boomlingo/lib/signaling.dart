@@ -137,7 +137,7 @@ class Signaling {
     signalingChannel.sink.add(offerJson);
   }
 
-  joinRoom({String userName = "default"}) async {
+  joinRoom({String userName = "default"}) {
     Map<String, dynamic> joinMap = {
       "username": userName,
       "join_room": "room_name"
