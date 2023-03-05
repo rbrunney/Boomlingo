@@ -153,7 +153,9 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   const Spacer(),
                   InkWell(
                       onTap: () {
-                        signaler.hangUp(_localRenderer);
+                        setState(() {
+                          signaler.hangUp(_localRenderer);
+                        });
                         //userName: textEditingController.text);
                       },
                       child: Container(
