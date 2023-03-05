@@ -82,7 +82,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                 onPressed: () async {
                   // signaler.initChannel();
                   setState(() {
-                    signaler.createRoom(_remoteRenderer);
+                    signaler.createRoom(_remoteRenderer, userName:textEditingController.text);
                   });
                 },
                 child: Text("Create room"),
@@ -95,7 +95,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   // Add roomId
                   setState(() {
                     signaler.joinRoom(
-                        // textEditingController.text,
+                          userName:textEditingController.text,
                         );
                   });
                 },
@@ -110,7 +110,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   setState(() {
                     signaler.createAnswer(
                       _remoteRenderer,
-                      // textEditingController.text,
+                        userName:textEditingController.text,
                     );
                     if (_remoteRenderer.srcObject != null) {
                       print("_remoteRenderer updated");
@@ -126,7 +126,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  signaler.hangUp(_localRenderer);
+                  signaler.hangUp(_localRenderer, userName:textEditingController.text);
                 },
                 child: Text("Hangup"),
               )
