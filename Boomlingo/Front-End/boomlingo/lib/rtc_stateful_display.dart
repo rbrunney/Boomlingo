@@ -87,7 +87,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   });
 
                   setState(() {
-                    signaler.createRoom(_remoteRenderer);
+                    signaler.createRoom(_remoteRenderer, userName:textEditingController.text);
                   });
                 },
                 child: Container(
@@ -110,14 +110,14 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                 onTap: () {
                   setState(() {
                     signaler.joinRoom(
-                        // textEditingController.text,
+                          userName:textEditingController.text,
                         );
                   });
 
                   setState(() {
                     signaler.createAnswer(
                       _remoteRenderer,
-                      // textEditingController.text,
+                        userName:textEditingController.text,
                     );
                     if (_remoteRenderer.srcObject != null) {
                       print("_remoteRenderer updated");
@@ -143,7 +143,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
             const Spacer(),
             InkWell(
                 onTap: () {
-                  signaler.hangUp(_localRenderer);
+                  signaler.hangUp(_localRenderer, userName:textEditingController.text);
                 },
                 child: Container(
                     decoration: const BoxDecoration(

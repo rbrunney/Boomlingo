@@ -11,11 +11,26 @@ class Signaling {
   Map<String, dynamic> config = {
     'iceServers': [
       {
-        'urls': [
-          'stun:stun1.1.google.com:19302',
-          'stun:stun2.1.google.com:19302'
-        ]
-      }
+        'urls': 'stun:stun1.1.google.com:19302',
+      },
+      {
+        "urls": 'stun:stun2.1.google.com:19302',
+      },
+      {
+        "urls": "turn:relay.metered.ca:80",
+        "username": "3a4e8d9f36a7ca85b82af71f",
+        "credential": "8QlB3fQxqmJlBHWp",
+      },
+      {
+        "urls": "turn:relay.metered.ca:443",
+        "username": "3a4e8d9f36a7ca85b82af71f",
+        "credential": "8QlB3fQxqmJlBHWp",
+      },
+      {
+        "urls": "turn:relay.metered.ca:443?transport=tcp",
+        "username": "3a4e8d9f36a7ca85b82af71f",
+        "credential": "8QlB3fQxqmJlBHWp",
+      },
     ]
   };
 
@@ -77,7 +92,8 @@ class Signaling {
     });
   }
 
-  createRoom(RTCVideoRenderer remoteRenderer, {String userName = ""}) async {
+  createRoom(RTCVideoRenderer remoteRenderer,
+      {String userName = "default"}) async {
     print("Create peer connection with config $config");
     localStream?.getTracks().forEach((track) {
       peerConnection.addTrack(track, localStream!);
@@ -114,8 +130,9 @@ class Signaling {
     signalingChannel.sink.add(offerJson);
   }
 
-  joinRoom({String roomID = ""}) async {
+  joinRoom({String userName = "default"}) async {
     Map<String, dynamic> joinMap = {
+      "username": userName,
       "join_room": "room_name"
     }; //To be updated to use usernames
 
@@ -125,7 +142,7 @@ class Signaling {
     signalingChannel.sink.add(joinJson);
   }
 
-  createAnswer(RTCVideoRenderer remoteVideo, {String roomID = ""}) async {
+  createAnswer(RTCVideoRenderer remoteVideo, {String userName = ""}) async {
     // if (offerSdpDescription != null) {
     //   await peerConnection.setRemoteDescription(offerSdpDescription!);
     if (peerConnection.getRemoteDescription() != null) {
@@ -148,7 +165,10 @@ class Signaling {
       peerConnection.setLocalDescription(answer);
       print("created answer: $answer");
 
-      Map<String, dynamic> answerMap = {"answer": answer.toMap()};
+      Map<String, dynamic> answerMap = {
+        "username": userName,
+        "answer": answer.toMap()
+      };
 
       String answerJson = json.encode(answerMap);
 
@@ -172,7 +192,8 @@ class Signaling {
     remoteVideo.srcObject = await createLocalMediaStream('key');
   }
 
-  Future<void> hangUp(RTCVideoRenderer localVideo) async {
+  Future<void> hangUp(RTCVideoRenderer localVideo,
+      {String userName = "default"}) async {
     List<MediaStreamTrack> tracks = localVideo.srcObject!.getTracks();
     tracks.forEach((track) {
       track.stop();
@@ -185,6 +206,10 @@ class Signaling {
 
     localStream!.dispose();
     remoteStream?.dispose();
+
+    Map<String, dynamic> hangUpMap = {"username": userName, "hangup": true};
+
+    signalingChannel.sink.add(hangUpMap);
   }
 
   void registerPeerConnectionListeners() {
