@@ -1,0 +1,5 @@
+version: '3.9'
+services:
+    answer_create:
+        build: .
+        image: word_of_day:1.0
