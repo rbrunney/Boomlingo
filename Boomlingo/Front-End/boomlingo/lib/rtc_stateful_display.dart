@@ -1,10 +1,12 @@
 import 'dart:convert';
-
 import 'package:boomlingo/signaling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/widgets/to_previous_page.dart';
 
 class RTCVideoDisplay extends StatefulWidget {
   const RTCVideoDisplay({Key? key}) : super(key: key);
@@ -51,62 +53,67 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // appBar: AppBar(
-      //   // ignore: prefer_const_constructors
-      //   title: Text("bruh"),
-      // ),
-      // body: Column(),
-      body: Column(
-        children: [
-          SizedBox(height: 8),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 15,
-                width: 8,
-              ),
-              ElevatedButton(
-                onPressed: () {
+    return SafeArea(
+        child: Scaffold(
+          backgroundColor: const Color(global_style.pageBackgroundColor),
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Expanded(
+                  child: ToPrevPage()
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.75,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: RTCVideoView(_localRenderer, mirror: true),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.75,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: RTCVideoView(_remoteRenderer)
+                      )
+                    ],
+                  ),
+                ),
+          Expanded(
+            child: Row(children: [
+            InkWell(
+                onTap: () {
                   setState(() {
                     signaler.openUserMedia(_localRenderer, _remoteRenderer);
                   });
-                },
-                child: Text("Open camera & microphone"),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  // signaler.initChannel();
+
                   setState(() {
                     signaler.createRoom(_remoteRenderer);
                   });
                 },
-                child: Text("Create room"),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Add roomId
+                child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Color(global_style.lightBlueAccentColor),
+                    ),
+                    margin: const EdgeInsets.only(left: 10),
+                    child: SizedBox(
+                        height: 60,
+                        width: 100,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(SimpleLineIcons.call_out),
+                              Text('Call')
+                            ])))),
+            const Spacer(),
+            InkWell(
+                onTap: () {
                   setState(() {
                     signaler.joinRoom(
                         // textEditingController.text,
                         );
                   });
-                },
-                child: Text("Join room"),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Add roomId
+
                   setState(() {
                     signaler.createAnswer(
                       _remoteRenderer,
@@ -119,49 +126,42 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                     }
                   });
                 },
-                child: Text("Create answer and connect"),
-              ),
-              SizedBox(
-                width: 8,
-              ),
-              ElevatedButton(
-                onPressed: () {
+                child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Color(global_style.lightBlueAccentColor),
+                    ),
+                    child: SizedBox(
+                        height: 60,
+                        width: 100,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(SimpleLineIcons.call_in),
+                              Text('Join')
+                            ])))),
+            const Spacer(),
+            InkWell(
+                onTap: () {
                   signaler.hangUp(_localRenderer);
                 },
-                child: Text("Hangup"),
-              )
-            ],
-          ),
-          SizedBox(height: 8),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(child: RTCVideoView(_localRenderer, mirror: true)),
-                  Expanded(child: RTCVideoView(_remoteRenderer)),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("Join the following Room: "),
-                Flexible(
-                  child: TextFormField(
-                    controller: textEditingController,
-                  ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 8)
-        ],
-      ),
-    );
+                child: Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.red,
+                    ),
+                    margin: const EdgeInsets.only(right: 10),
+                    child: SizedBox(
+                        height: 60,
+                        width: 100,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(SimpleLineIcons.call_end),
+                              Text('Hang Up')
+                            ]))))
+            ]),
+          )
+    ])));
   }
 }
