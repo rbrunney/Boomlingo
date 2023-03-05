@@ -79,12 +79,33 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   ),
                 ),
           Expanded(
+
             child: Row(children: [
             InkWell(
+            onTap: () {
+
+              setState(() {
+                signaler.openUserMedia(_localRenderer, _remoteRenderer);
+              });
+              },
+                  child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              color: Color(global_style.lightBlueAccentColor),
+            ),
+            margin: const EdgeInsets.only(left: 10),
+            child: SizedBox(
+                height: 60,
+                width: 100,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Ionicons.camera_outline),
+                      Text('Camera')
+                    ])))),
+            const Spacer(),
+            InkWell(
                 onTap: () {
-                  setState(() {
-                    signaler.openUserMedia(_localRenderer, _remoteRenderer);
-                  });
 
                   setState(() {
                     signaler.createRoom(_remoteRenderer, userName:textEditingController.text);
