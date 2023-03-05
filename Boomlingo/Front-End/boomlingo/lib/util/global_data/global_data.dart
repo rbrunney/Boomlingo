@@ -5,7 +5,7 @@ String awsBaseLink =
 String awsWebScraperLink =
     "https://04sjfobd0h.execute-api.us-west-1.amazonaws.com/boomlingo";
 
-String awsWebRTCServerIP = "52.53.149.67";
+String awsWebRTCServerIP = "52.53.197.168";
 
 // Login Data
 LoginType currentLoginType = LoginType.none;
