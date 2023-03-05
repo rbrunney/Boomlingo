@@ -29,5 +29,3 @@ def crawl_urban_dictionary(search_term):
         "definition" : profanity.censor(definition.get_text()),
         "example" : profanity.censor(example.get_text())
     }
-
-print(lambda_handler({'search_term' : input('[SEARCH] Enter Term to Find ')}, {}))

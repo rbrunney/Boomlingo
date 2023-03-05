@@ -65,10 +65,17 @@ class _HomePageState extends State<HomePage> {
                         margin: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 40),
                         child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: global_data.userData['photoUrl'] != "" ? null : Colors.blue,
-                          backgroundImage: global_data.userData['photoUrl'] != "" ? NetworkImage(global_data.userData['photoUrl']) : null
-                        ),
+                        radius: 30,
+                        backgroundImage: global_data.userData['photoUrl'] != ""
+                            ? NetworkImage(global_data.userData['photoUrl'])
+                            : null,
+                        child: global_data.userData['photoUrl'] != ""
+                            ? null
+                            : const Icon(
+                                Icons.account_circle_outlined,
+                                size: 60,
+                              ),
+                        )
                       ),
                       Column(
                         children: [

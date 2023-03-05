@@ -35,9 +35,17 @@ class _AccountPageState extends State<AccountPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            const Icon(
-              Icons.account_circle_outlined,
-              size: 60,
+            CircleAvatar(
+              radius: 30,
+              backgroundImage: global_data.userData['photoUrl'] != ""
+                  ? NetworkImage(global_data.userData['photoUrl'])
+                  : null,
+              child: global_data.userData['photoUrl'] != ""
+                  ? null
+                  : const Icon(
+                      Icons.account_circle_outlined,
+                      size: 60,
+                    ),
             ),
             Container(
                 margin: const EdgeInsets.only(left: 30),
