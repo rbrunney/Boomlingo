@@ -47,7 +47,11 @@ class Signaling {
   final signalingChannel = WebSocketChannel.connect(
     //Uri.parse("ws://boomlingowebrtc.azurewebsites.net/socket/")
     // signalingUri
-    Uri(scheme: "ws", host: global_data.awsWebRTCServerIP, port: 80, path: "/socket"),
+    Uri(
+        scheme: "ws",
+        host: global_data.awsWebRTCServerIP,
+        port: 80,
+        path: "/socket"),
   );
 
   initChannel() async {
@@ -121,7 +125,10 @@ class Signaling {
     RTCSessionDescription offer = await peerConnection.createOffer();
     await peerConnection.setLocalDescription(offer);
     //Be sure to modify to add a username later to the jsonbody
-    Map<String, dynamic> offerMap = {"offer": offer.toMap()};
+    Map<String, dynamic> offerMap = {
+      "username": userName,
+      "offer": offer.toMap()
+    };
 
     String offerJson = json.encode(offerMap);
 
@@ -142,7 +149,8 @@ class Signaling {
     signalingChannel.sink.add(joinJson);
   }
 
-  createAnswer(RTCVideoRenderer remoteVideo, {String userName = "default"}) async {
+  createAnswer(RTCVideoRenderer remoteVideo,
+      {String userName = "default"}) async {
     // if (offerSdpDescription != null) {
     //   await peerConnection.setRemoteDescription(offerSdpDescription!);
     if (peerConnection.getRemoteDescription() != null) {
@@ -209,7 +217,7 @@ class Signaling {
 
     Map<String, dynamic> hangUpMap = {"username": userName, "hangup": true};
 
-    signalingChannel.sink.add(hangUpMap);
+    signalingChannel.sink.add(json.encode(hangUpMap));
   }
 
   void registerPeerConnectionListeners() {
