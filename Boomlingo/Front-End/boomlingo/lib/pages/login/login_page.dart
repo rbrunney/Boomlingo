@@ -1,5 +1,6 @@
 import 'package:boomlingo/pages/login/forgot_password_page.dart';
 import 'package:boomlingo/pages/login/register_page.dart';
+import 'package:boomlingo/util/widgets/to_previous_page.dart';
 import 'package:boomlingo/util/page_navigation.dart';
 import 'package:boomlingo/util/widgets/custom_text_field.dart';
 import 'package:boomlingo/util/widgets/page_image.dart';
@@ -54,6 +55,7 @@ class _LoginPageState extends State<LoginPage> {
             body: SingleChildScrollView(
       child: Column(
         children: [
+          const ToPrevPage(),
           const PageImage(assetImg: 'assets/images/icon.png', marginTop: 55),
           const PageTitle(title: "Login"),
           CustomTextField(
@@ -80,23 +82,6 @@ class _LoginPageState extends State<LoginPage> {
             textController: _passwordController,
             errorText: passwordErrorText,
           ),
-          InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    PageTransition(
-                        child: const ForgotPasswordPage(
-                          title: "Forgot",
-                        ),
-                        type: PageTransitionType.rightToLeftWithFade));
-              },
-              child: Container(
-                  margin: const EdgeInsets.symmetric(vertical: 15),
-                  child: Text("Forgot Password?",
-                      style: TextStyle(
-                          decoration: TextDecoration.underline,
-                          color: Colors.blue,
-                          fontFamily: global_style.textFont)))),
           Container(
               margin: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
@@ -118,40 +103,29 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Text(
                         "Login",
-                        style: TextStyle(fontFamily: global_style.textFont),
-                      )))),
-          Container(
-              margin: const EdgeInsets.only(top: 15),
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: Text(
-                      "New to Boomlingo?",
-                      style: TextStyle(
-                        fontFamily: global_style.textFont,
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            PageTransition(
-                                child: const RegisterPage(),
-                                type: PageTransitionType.rightToLeftWithFade));
-                      },
-                      child: Text(
-                        "Register",
                         style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.blue,
-                            fontFamily: global_style.textFont),
-                      ))
-                ],
-              ))
+                          fontFamily: global_style.textFont,
+                          color: const Color(global_style.textColor),
+                          fontWeight: FontWeight.bold
+                        ),
+                      )))),
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    PageTransition(
+                        child: const ForgotPasswordPage(
+                          title: "Forgot",
+                        ),
+                        type: PageTransitionType.rightToLeftWithFade));
+              },
+              child: Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  child: Text("Forgot Password?",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          color: Colors.blue,
+                          fontFamily: global_style.textFont))))
         ],
       ),
     )));

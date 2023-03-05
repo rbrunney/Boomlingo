@@ -104,7 +104,7 @@ class _LandingPageState extends State<LandingPage> {
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
-      text: 'Sign in with Google',
+      text: 'Continue with Google',
       prefixImagePath: './assets/images/google_logo.png',
     );
   }
@@ -117,7 +117,7 @@ class _LandingPageState extends State<LandingPage> {
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
-      text: 'Sign in with Facebook',
+      text: 'Continue with Facebook',
       prefixImagePath: './assets/images/facebook_logo.png',
     );
   }
