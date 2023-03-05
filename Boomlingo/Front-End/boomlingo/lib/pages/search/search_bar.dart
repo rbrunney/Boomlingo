@@ -1,3 +1,4 @@
+import 'result_page.dart';
 import 'package:boomlingo/pages/search/definition_card.dart';
 import 'package:flutter/material.dart';
 import 'package:boomlingo/util/widgets/custom_text_field.dart';
@@ -24,14 +25,10 @@ class _SearchBarState extends State<SearchBar> {
             prefixIcon: Ionicons.search,
             prefixIconPress: () {
               Navigator.push(
-                    context,
-                    PageTransition(
-                        child: const DefinitionCard(
-                          term: 'Ur Mom',
-                          definition: 'Ur Mom',
-                          example: 'Ur Mom',
-                        ),
-                        type: PageTransitionType.rightToLeftWithFade));
+                  context,
+                  PageTransition(
+                      child: SearchResult(searchTerm: searchController.text),
+                      type: PageTransitionType.rightToLeftWithFade));
             },
             textCallBack: (value) {
               print('Hello World');

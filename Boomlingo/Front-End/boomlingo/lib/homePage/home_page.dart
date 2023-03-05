@@ -4,6 +4,7 @@ import 'package:boomlingo/util/widgets/course_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 import '../util/widgets/page_image.dart';
 
@@ -63,19 +64,27 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         margin: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 40),
-                        child: const CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.blue,
-                        ),
+                        child: CircleAvatar(
+                        radius: 30,
+                        backgroundImage: global_data.userData['photoUrl'] != ""
+                            ? NetworkImage(global_data.userData['photoUrl'])
+                            : null,
+                        child: global_data.userData['photoUrl'] != ""
+                            ? null
+                            : const Icon(
+                                Icons.account_circle_outlined,
+                                size: 60,
+                              ),
+                        )
                       ),
                       Column(
                         children: [
                           Container(
                             margin: const EdgeInsets.only(
                                 bottom: 5, top: 5, right: 30),
-                            child: const Text(
-                              "Alex",
-                              style: TextStyle(
+                            child: Text(
+                              global_data.userData['name'],
+                              style: const TextStyle(
                                   fontSize: 25,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
@@ -132,7 +141,10 @@ class _HomePageState extends State<HomePage> {
                               itemCount: courseCards.length,
                               itemBuilder: (context, index) {
                                 return courseCards[index];
-                              }, separatorBuilder: (BuildContext context, int index) => const Divider(),
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(),
                             )
                           ]),
                         )),

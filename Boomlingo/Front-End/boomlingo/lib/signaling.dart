@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:boomlingo/util/style/global_style.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 typedef void StreamStateCallback(MediaStream stream);
 
@@ -46,7 +47,7 @@ class Signaling {
   final signalingChannel = WebSocketChannel.connect(
     //Uri.parse("ws://boomlingowebrtc.azurewebsites.net/socket/")
     // signalingUri
-    Uri(scheme: "ws", host: "54.193.98.179", port: 80, path: "/socket"),
+    Uri(scheme: "ws", host: global_data.awsWebRTCServerIP, port: 80, path: "/socket"),
   );
 
   initChannel() async {

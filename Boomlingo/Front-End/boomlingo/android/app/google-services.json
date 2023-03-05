@@ -14,15 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "648688607248-dcbb8sddeuq4fn0tk61p9on644e8qi7i.apps.googleusercontent.com",
+          "client_id": "648688607248-o77poq7l6q5vrp6s8a8t7ikij5l18ev8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.boomlingo",
-            "certificate_hash": "a428cd1e6544a9434e650fbe2a63337bedddea39"
+            "certificate_hash": "09851c9c3fc607149b11f112988c741c1ec54595"
           }
         },
         {
-          "client_id": "648688607248-1u05tv96j2mj76ig95vgl3ebkr2l65gk.apps.googleusercontent.com",
+          "client_id": "648688607248-k2ues8iq08s0eb4ccvgabap6ik505jvu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

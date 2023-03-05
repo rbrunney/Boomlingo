@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'landing_button.dart';
-import './controllers/boomlingo_login_controller.dart';
 import './controllers/google_login_controller.dart';
 import './controllers/facebook_login_controller.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
@@ -23,7 +22,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final googleController = Get.put(GoogleLoginController());
   final facebookController = Get.put(FacebookLoginController());
-  final investedController = Get.put(BoomlingoLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -100,11 +98,10 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await googleController.login();
-        print(global_data.userData);
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
-      text: 'Sign in with Google',
+      text: 'Continue with Google',
       prefixImagePath: './assets/images/google_logo.png',
     );
   }
@@ -113,20 +110,17 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await facebookController.login();
-        print(global_data.userData);
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
-      text: 'Sign in with Facebook',
+      text: 'Continue with Facebook',
       prefixImagePath: './assets/images/facebook_logo.png',
     );
   }
 
   InkWell buildLoginButton() {
     return InkWell(
-        onTap: () async {
-          await investedController.login();
-          print(investedController.userData);
+        onTap: () {
           pushToNewPage(const LoginPage(), PageTransitionType.fade);
         },
         child: SizedBox(
