@@ -123,12 +123,8 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                   InkWell(
                       onTap: () {
                         setState(() {
-                          signaler.joinRoom(
-                              //userName: textEditingController.text,
-                              );
-                        });
+                          signaler.joinRoom();
 
-                        setState(() {
                           signaler.createAnswer(
                             _remoteRenderer,
                             //userName: textEditingController.text,
