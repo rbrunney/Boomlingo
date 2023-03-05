@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'landing_button.dart';
-import './controllers/boomlingo_login_controller.dart';
 import './controllers/google_login_controller.dart';
 import './controllers/facebook_login_controller.dart';
 import 'package:boomlingo/util/widgets/page_title.dart';
@@ -23,7 +22,6 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   final googleController = Get.put(GoogleLoginController());
   final facebookController = Get.put(FacebookLoginController());
-  final investedController = Get.put(BoomlingoLoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -124,9 +122,7 @@ class _LandingPageState extends State<LandingPage> {
 
   InkWell buildLoginButton() {
     return InkWell(
-        onTap: () async {
-          await investedController.login();
-          print(investedController.userData);
+        onTap: () {
           pushToNewPage(const LoginPage(), PageTransitionType.fade);
         },
         child: SizedBox(

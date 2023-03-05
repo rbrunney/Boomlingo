@@ -1,21 +1,27 @@
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:dbcrypt/dbcrypt.dart';
+import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 class BoomlingoLoginController extends GetxController {
-  Map<String, dynamic>? userData = {
-    "name" : "",
-    "email" : "",
-    "photoUrl" : ""
-  };
+  Map<String, dynamic>? userData = {"name": "", "email": "", "photoUrl": ""};
 
-  login() async {
-    // Make Request Here
-    // Get User Data
-    userData!['name'] = '';
-    userData!['email'] = '';
-    userData!['photoUrl'] = '';
+  login(String username, String password) async {
+    await Requests().makePostRequest("${global_data.awsBaseLink}/user/get/one",
+        {"username": username}).then((value) async {
+      var response = json.decode(value);
 
-    _updateGlobalData();
+      try {
+        if (DBCrypt().checkpw(password, response[0]['password'])) {
+          userData!['name'] = response[0]['username'];
+          userData!['email'] = response[0]['email'];
+          _updateGlobalData();
+        }
+      } catch (exception) {
+        print(exception);
+      }
+    });
   }
 
   logout() async {
@@ -32,5 +38,7 @@ class BoomlingoLoginController extends GetxController {
 
     // Update LoginType for later
     global_data.currentLoginType = global_data.LoginType.boomlingo;
+
+    print('Made Log In');
   }
 }
