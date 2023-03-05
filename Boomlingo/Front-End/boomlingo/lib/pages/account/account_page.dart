@@ -5,11 +5,12 @@ import 'package:boomlingo/util/widgets/page_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:boomlingo/pages/landing/landing_page.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 import '../../util/widgets/custom_text.dart';
 import '../login/forgot_password_page.dart';
-import '../login/login_page.dart';
 import 'account_settings/account_info_page.dart';
 
 class AccountPage extends StatefulWidget {
@@ -45,11 +46,11 @@ class _AccountPageState extends State<AccountPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     CustomText(
-                      text: "Robert Brunney",
+                      text: global_data.userData['name'],
                       fontSize: 25,
                     ),
                     CustomText(
-                        text: "Member Since: 11-15-2022",
+                        text: "Member Since: ${global_data.userData['joinDate']}",
                         fontSize: 14,
                         color: Colors.grey)
                   ],
@@ -144,7 +145,7 @@ class _AccountPageState extends State<AccountPage> {
                 onTap: () {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
-                          builder: (context) => const LoginPage()),
+                          builder: (context) => const LandingPage()),
                       (Route<dynamic> route) => false);
                 },
               )

@@ -98,7 +98,6 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await googleController.login();
-        print(global_data.userData);
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
@@ -111,7 +110,6 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await facebookController.login();
-        print(global_data.userData);
         pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
       },
       hasBorder: true,
