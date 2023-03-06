@@ -19,6 +19,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
   RTCVideoRenderer _remoteRenderer = RTCVideoRenderer();
   TextEditingController textEditingController = TextEditingController();
   Signaling signaler = Signaling();
+
   @override
   void initState() {
     _localRenderer.initialize();

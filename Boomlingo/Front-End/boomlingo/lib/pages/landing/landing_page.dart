@@ -1,3 +1,4 @@
+import 'package:boomlingo/util/page_navigation.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -98,7 +99,9 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await googleController.login();
-        pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
+        if(global_data.currentLoginType == global_data.LoginType.google) {
+          pushToNewPage(const PageNavigation(), PageTransitionType.bottomToTop);
+        }
       },
       hasBorder: true,
       text: 'Continue with Google',
@@ -110,7 +113,9 @@ class _LandingPageState extends State<LandingPage> {
     return LandingButton(
       onTap: () async {
         await facebookController.login();
-        pushToNewPage(const HomePage(), PageTransitionType.bottomToTop);
+        if(global_data.currentLoginType == global_data.LoginType.facebook) {
+          pushToNewPage(const PageNavigation(), PageTransitionType.bottomToTop);
+        }
       },
       hasBorder: true,
       text: 'Continue with Facebook',

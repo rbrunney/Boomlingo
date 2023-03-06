@@ -86,46 +86,46 @@ class _CourseCardState extends State<CourseCard> {
                         ),
                       ),
                       const Spacer(),
-                      FutureBuilder<String>(
-                        future: getLessonsRequest,
-                        builder: (context, snapshot) {
-                          if(snapshot.hasData) {
-
-                            List<dynamic> lessons = json.decode(snapshot.data!);
-                            print(lessons);
-                            int totalLessons = 0;
-
-                            for (var lesson in lessons) {
-                              print(lesson);
-                              if(lesson['course_id'] == widget.courseID) {
-                                totalLessons++;
-                              }
-                            }
-
-
-                            return Container(
-                                margin: const EdgeInsets.only(left: 15, bottom: 15),
-                                child: Center(
-                                  child: Text(
-                                    "Includes $totalLessons memes",
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ));
-                          }
-
-                          return Center(
-                              heightFactor: 20,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: const CircularProgressIndicator(
-                                  color: Color(global_style.lightBlueAccentColor),
-                                ),
-                              ));
-                        }
-                      )
+                      // FutureBuilder<String>(
+                      //   future: getLessonsRequest,
+                      //   builder: (context, snapshot) {
+                      //     if(snapshot.hasData) {
+                      //
+                      //       List<dynamic> lessons = json.decode(snapshot.data!);
+                      //       print(lessons);
+                      //       int totalLessons = 0;
+                      //
+                      //       for (var lesson in lessons) {
+                      //         print(lesson);
+                      //         if(lesson['course_id'] == widget.courseID) {
+                      //           totalLessons++;
+                      //         }
+                      //       }
+                      //
+                      //
+                      //       return Container(
+                      //           margin: const EdgeInsets.only(left: 15, bottom: 15),
+                      //           child: Center(
+                      //             child: Text(
+                      //               "Includes $totalLessons memes",
+                      //               style: const TextStyle(
+                      //                 fontSize: 15,
+                      //                 fontWeight: FontWeight.bold,
+                      //               ),
+                      //             ),
+                      //           ));
+                      //     }
+                      //
+                      //     return Center(
+                      //         heightFactor: 20,
+                      //         child: Container(
+                      //           alignment: Alignment.center,
+                      //           child: const CircularProgressIndicator(
+                      //             color: Color(global_style.lightBlueAccentColor),
+                      //           ),
+                      //         ));
+                      //   }
+                      // )
                     ],
                   ),
                 ],
