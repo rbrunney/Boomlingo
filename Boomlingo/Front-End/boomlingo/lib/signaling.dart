@@ -142,7 +142,6 @@ class Signaling {
       "username": userName,
       "join_room": "room_name"
     }; //To be updated to use usernames
-
     String joinJson = json.encode(joinMap);
 
     print(joinJson);
@@ -153,6 +152,9 @@ class Signaling {
       {String userName = "default"}) async {
     // if (offerSdpDescription != null) {
     //   await peerConnection.setRemoteDescription(offerSdpDescription!);
+
+    await Future.delayed(Duration(seconds: 5));
+
     if (peerConnection.getRemoteDescription() != null) {
       localStream?.getTracks().forEach((track) {
         print("in answer gathering localstreams");
