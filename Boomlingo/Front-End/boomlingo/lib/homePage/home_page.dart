@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:boomlingo/models/course.dart';
 import 'package:boomlingo/util/nav_widget.dart';
 import 'package:boomlingo/util/widgets/achievement_widget.dart';
 import 'package:boomlingo/util/widgets/course_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
@@ -46,9 +50,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<String>? getCourseRequest = Requests().makeGetRequest("${global_data.awsBaseLink}/course/get");
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Container(
+        body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/CqBO6J.jpg"),
@@ -115,44 +119,80 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 450,
-                    height: 600,
-                    child: Card(
-                        color: const Color(global_style.pageBackgroundColor),
-                        margin: const EdgeInsets.only(top: 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(60),
-                        ),
-                        elevation: 2,
-                        child: SingleChildScrollView(
-                          child: Column(children: [
-                            Container(
-                              margin: const EdgeInsets.only(
-                                  top: 40, right: 120, bottom: 10),
-                              child: const Text(
-                                "Let's begin studying!",
-                                style: TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Card(
+                          color: const Color(global_style.pageBackgroundColor),
+                          margin: const EdgeInsets.only(top: 50),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
+                          ),
+                          elevation: 2,
+                          child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    top: 25, right: 120, bottom: 10),
+                                child: const Text(
+                                  "Let's begin studying!",
+                                  style: TextStyle(
+                                      fontSize: 25, fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                            ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: courseCards.length,
-                              itemBuilder: (context, index) {
-                                return courseCards[index];
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(),
-                            )
-                          ]),
-                        )),
-                  ),
+                              Expanded(
+                                child:
+                                FutureBuilder<String>(
+                                    future: getCourseRequest,
+                                    builder: (context, snapshot) {
+                                      if(snapshot.hasData) {
+
+                                        List<dynamic> courses = json.decode(snapshot.data!);
+
+                                        print(courses);
+
+                                        return SingleChildScrollView(
+                                          child: Column(
+                                              children: [
+                                                ListView.separated(
+                                                  shrinkWrap: true,
+                                                  itemCount: courseCards.length,
+                                                  itemBuilder: (context, index) {
+                                                    try {
+                                                      return CourseCard(
+                                                        courseID: courses[index]['course_id'],
+                                                        courseName: courses[index]['course_name'],
+                                                      );
+                                                    } catch(exception) {}
+                                                  },
+                                                  separatorBuilder:
+                                                      (BuildContext context, int index) =>
+                                                  const Divider(),
+                                                )
+                                              ]
+                                          )
+                                        );
+                                      }
+                                      return Center(
+                                          heightFactor: 20,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: const CircularProgressIndicator(
+                                              color: Color(global_style.lightBlueAccentColor),
+                                            ),
+                                          ));
+                                    }
+                                )
+                              )
+                            ],
+                          )
+                      ),
+                    )
+                  )
                 ],
               ),
             ],
-          )),
+          ),
     ));
   }
 }

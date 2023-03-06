@@ -74,7 +74,7 @@ class _CourseCardState extends State<CourseCard> {
                         margin:
                             const EdgeInsets.only(left: 15, top: 10, bottom: 5),
                         child: Text(
-                          "${widget.courseName} memes",
+                          widget.courseName,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
