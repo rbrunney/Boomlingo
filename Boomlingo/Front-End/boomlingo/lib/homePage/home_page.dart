@@ -20,33 +20,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<CourseCard> courseCards = [
-    CourseCard(
-      courseID: 1,
-      courseName: "2016",
-      lessons: const ["stuff", "more stuff", "yessirrr"],
-    ),
-    CourseCard(
-      courseID: 2,
-      courseName: "2017",
-      lessons: const ["stuff"],
-    ),
-    CourseCard(
-      courseID: 3,
-      courseName: "2018",
-      lessons: const ["stuff"],
-    ),
-    CourseCard(
-      courseID: 4,
-      courseName: "2019",
-      lessons: const ["stuff"],
-    ),
-    CourseCard(
-      courseID: 4,
-      courseName: "2020",
-      lessons: const ["more stuff", "yessirrr"],
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                                                 ListView.separated(
                                                   physics: const NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
-                                                  itemCount: courseCards.length,
+                                                  itemCount: courses.length,
                                                   itemBuilder: (context, index) {
                                                     try {
                                                       return CourseCard(

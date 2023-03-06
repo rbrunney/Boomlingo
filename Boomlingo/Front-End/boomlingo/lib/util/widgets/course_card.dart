@@ -28,6 +28,11 @@ class _CourseCardState extends State<CourseCard> {
 
     Future<String>? getLessonsRequest = Requests().makeGetRequest("${global_data.awsBaseLink}/lessons/get");
 
+    @override
+    void initState() {
+      super.initState();
+    }
+
     return ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 350, maxHeight: 125),
         child: GestureDetector(
@@ -64,19 +69,20 @@ class _CourseCardState extends State<CourseCard> {
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)),
                         child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 40),
                           child: const Image(
                             image: AssetImage("assets/images/icon.png"),
-                            width: 75,
-                            height: 75,
+                            width: 80,
+                            height: 80,
                             fit: BoxFit.cover,
                           ),
                         )),
                   Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         margin:
-                            const EdgeInsets.only(left: 15, top: 10, bottom: 5),
+                            const EdgeInsets.only(left: 15, bottom: 5),
                         child: Text(
                           widget.courseName,
                           style: const TextStyle(
@@ -84,48 +90,7 @@ class _CourseCardState extends State<CourseCard> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      // FutureBuilder<String>(
-                      //   future: getLessonsRequest,
-                      //   builder: (context, snapshot) {
-                      //     if(snapshot.hasData) {
-                      //
-                      //       List<dynamic> lessons = json.decode(snapshot.data!);
-                      //       print(lessons);
-                      //       int totalLessons = 0;
-                      //
-                      //       for (var lesson in lessons) {
-                      //         print(lesson);
-                      //         if(lesson['course_id'] == widget.courseID) {
-                      //           totalLessons++;
-                      //         }
-                      //       }
-                      //
-                      //
-                      //       return Container(
-                      //           margin: const EdgeInsets.only(left: 15, bottom: 15),
-                      //           child: Center(
-                      //             child: Text(
-                      //               "Includes $totalLessons memes",
-                      //               style: const TextStyle(
-                      //                 fontSize: 15,
-                      //                 fontWeight: FontWeight.bold,
-                      //               ),
-                      //             ),
-                      //           ));
-                      //     }
-                      //
-                      //     return Center(
-                      //         heightFactor: 20,
-                      //         child: Container(
-                      //           alignment: Alignment.center,
-                      //           child: const CircularProgressIndicator(
-                      //             color: Color(global_style.lightBlueAccentColor),
-                      //           ),
-                      //         ));
-                      //   }
-                      // )
+                      )
                     ],
                   ),
                 ],

@@ -21,14 +21,19 @@ class _LessonHeaderState extends State<LessonHeader> {
           horizontal: MediaQuery.of(context).size.width * 0.05),
       child: Row(
         children: [
-          SizedBox(
-            height: 50,
-            width: 50,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.arrow_back_rounded),
               ),
-              child: const Icon(Icons.arrow_back_rounded),
             ),
           ),
           const Spacer(),
