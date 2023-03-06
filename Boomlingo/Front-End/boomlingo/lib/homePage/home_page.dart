@@ -155,6 +155,7 @@ class _HomePageState extends State<HomePage> {
                                           child: Column(
                                               children: [
                                                 ListView.separated(
+                                                  physics: const NeverScrollableScrollPhysics(),
                                                   shrinkWrap: true,
                                                   itemCount: courseCards.length,
                                                   itemBuilder: (context, index) {

@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:boomlingo/pages/lesson/lesson_page.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:boomlingo/util/requests/requests.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 
 class CourseCard extends StatefulWidget {
   CourseCard(
@@ -24,6 +25,9 @@ class CourseCard extends StatefulWidget {
 class _CourseCardState extends State<CourseCard> {
   @override
   Widget build(BuildContext context) {
+
+    Future<String>? getLessonsRequest = Requests().makeGetRequest("${global_data.awsBaseLink}/lessons/get");
+
     return ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 350, maxHeight: 125),
         child: GestureDetector(
@@ -82,17 +86,46 @@ class _CourseCardState extends State<CourseCard> {
                         ),
                       ),
                       const Spacer(),
-                      Container(
-                          margin: const EdgeInsets.only(left: 15, bottom: 15),
-                          child: Center(
-                            child: Text(
-                              "Includes ${widget.lessons.length} memes",
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )),
+                      FutureBuilder<String>(
+                        future: getLessonsRequest,
+                        builder: (context, snapshot) {
+                          if(snapshot.hasData) {
+
+                            List<dynamic> lessons = json.decode(snapshot.data!);
+                            print(lessons);
+                            int totalLessons = 0;
+
+                            for (var lesson in lessons) {
+                              print(lesson);
+                              if(lesson['course_id'] == widget.courseID) {
+                                totalLessons++;
+                              }
+                            }
+
+
+                            return Container(
+                                margin: const EdgeInsets.only(left: 15, bottom: 15),
+                                child: Center(
+                                  child: Text(
+                                    "Includes $totalLessons memes",
+                                    style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ));
+                          }
+
+                          return Center(
+                              heightFactor: 20,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: const CircularProgressIndicator(
+                                  color: Color(global_style.lightBlueAccentColor),
+                                ),
+                              ));
+                        }
+                      )
                     ],
                   ),
                 ],
