@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:boomlingo/signaling.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -124,7 +125,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                       onTap: () {
                         setState(() {
                           signaler.joinRoom();
-
+                          sleep(Duration(seconds: 3));
                           signaler.createAnswer(
                             _remoteRenderer,
                             //userName: textEditingController.text,
