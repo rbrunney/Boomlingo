@@ -89,7 +89,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                           ),
                           child: SizedBox(
                               height: 60,
-                              width: 100,
+                              width: MediaQuery.of(context).size.width * 0.23,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
@@ -111,7 +111,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                           ),
                           child: SizedBox(
                               height: 60,
-                              width: 100,
+                              width:  MediaQuery.of(context).size.width * 0.23,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
@@ -142,7 +142,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                           ),
                           child: SizedBox(
                               height: 60,
-                              width: 100,
+                              width:  MediaQuery.of(context).size.width * 0.23,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [
@@ -164,7 +164,7 @@ class _RTCVideoDisplayState extends State<RTCVideoDisplay> {
                           ),
                           child: SizedBox(
                               height: 60,
-                              width: 100,
+                              width: MediaQuery.of(context).size.width * 0.23,
                               child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: const [

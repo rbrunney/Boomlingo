@@ -1,9 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'representative-card.dart';
+import 'package:boomlingo/util/style/global_style.dart' as global_style;
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -23,6 +22,7 @@ class _VideoCallPageState extends State<VideoCallPage>
     TextEditingController _searchController = TextEditingController();
     return SafeArea(
         child: Scaffold(
+          backgroundColor: const Color(global_style.pageBackgroundColor),
       appBar: AppBar(
           title: Row(
         children: [
