@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:boomlingo/pages/lesson/quiz/quiz_page.dart';
 import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/util/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ class LessonCard extends StatefulWidget {
   final int lessonId;
   final String lessonTitle;
   final String lessonThumbnail;
+  final String videoId;
   final int totalExcercise;
   final int totalRewardPoints;
   const LessonCard(
@@ -17,6 +19,7 @@ class LessonCard extends StatefulWidget {
       this.lessonTitle = 'TITLE',
       this.lessonThumbnail =
           'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg',
+        this.videoId = '',
       this.totalExcercise = 0,
       this.totalRewardPoints = 0});
 
@@ -26,6 +29,7 @@ class LessonCard extends StatefulWidget {
 
 class _LessonCardState extends State<LessonCard> {
   List<Widget> excerciseDots = [];
+  List<dynamic> questions = [];
 
   @override
   void initState() {
@@ -74,12 +78,18 @@ class _LessonCardState extends State<LessonCard> {
                                         fontWeight: FontWeight.bold),
                                     widget.lessonTitle),
                                 const Spacer(),
-                                Text(
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontFamily: global_style.textFont,
-                                        fontWeight: FontWeight.bold),
-                                    '${widget.totalRewardPoints}'),
+                                Row(
+                                  children: [
+                                    const Icon(Icons.star_border_purple500_rounded),
+                                    Text(
+                                      style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: global_style.textFont,
+                                      fontWeight: FontWeight.bold),
+                                      '${widget.totalRewardPoints}'
+                                    ),
+                                  ],
+                                )
                               ],
                             )),
                         Row(
@@ -101,6 +111,8 @@ class _LessonCardState extends State<LessonCard> {
                                           shape: BoxShape.circle,
                                         ),
                                       ));
+
+                                      questions.add(question);
                                     }
                                   }
 
@@ -152,7 +164,17 @@ class _LessonCardState extends State<LessonCard> {
                           ],
                         ),
                         InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                      builder: (BuildContext context) => QuizPage(
+                                        lessonId: widget.lessonId,
+                                        videoId: widget.videoId,
+                                        lessonTitle: widget.lessonTitle,
+                                        questions: questions,
+                                      )));
+                            },
                             child: Container(
                                 decoration: const BoxDecoration(
                                     borderRadius:

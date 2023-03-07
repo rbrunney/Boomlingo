@@ -41,6 +41,8 @@ class _LessonPageState extends State<LessonPage> {
                           lessonCards.add(
                               LessonCard(
                                 lessonId: lesson['lesson_id'],
+                            videoId: lesson['video_id'],
+                            totalRewardPoints: lesson['total_points'],
                             lessonTitle: lesson['lesson_name'],
                             lessonThumbnail: lesson['thumbnail'],
                           ));
