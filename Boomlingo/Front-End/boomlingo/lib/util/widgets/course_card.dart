@@ -40,7 +40,10 @@ class _CourseCardState extends State<CourseCard> {
             Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                    builder: (BuildContext context) => const LessonPage()));
+                    builder: (BuildContext context) => LessonPage(
+                      courseName: widget.courseName,
+                      courseId: widget.courseID,
+                    )));
           },
           child: Card(
               margin: const EdgeInsets.all(10),

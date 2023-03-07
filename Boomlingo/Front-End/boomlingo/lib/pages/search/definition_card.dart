@@ -31,7 +31,7 @@ class DefinitionCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10)),
                       child: Image.network(
-                        gifLink == null ? 'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg' : gifLink,
+                        gifLink ?? 'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg',
                         width: MediaQuery.of(context).size.width,
                         height: 150,
                         fit: BoxFit.cover,

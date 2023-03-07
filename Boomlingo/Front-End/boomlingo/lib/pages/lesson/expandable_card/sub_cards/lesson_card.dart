@@ -1,14 +1,19 @@
+import 'dart:convert';
+import 'package:boomlingo/util/requests/requests.dart';
 import 'package:boomlingo/util/widgets/custom_text.dart';
 import 'package:flutter/material.dart';
+import 'package:boomlingo/util/global_data/global_data.dart' as global_data;
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
 
 class LessonCard extends StatefulWidget {
+  final int lessonId;
   final String lessonTitle;
   final String lessonThumbnail;
   final int totalExcercise;
   final int totalRewardPoints;
   const LessonCard(
       {super.key,
+        this.lessonId = 0,
       this.lessonTitle = 'TITLE',
       this.lessonThumbnail =
           'https://i.pinimg.com/736x/ba/92/7f/ba927ff34cd961ce2c184d47e8ead9f6.jpg',
@@ -25,22 +30,13 @@ class _LessonCardState extends State<LessonCard> {
   @override
   void initState() {
     super.initState();
-
-    for (int i = 0; i < widget.totalExcercise; i++) {
-      excerciseDots.add(Container(
-        width: 12,
-        height: 12,
-        margin: const EdgeInsets.symmetric(horizontal: 2),
-        decoration: const BoxDecoration(
-          color: Color(global_style.lightBlueAccentColor),
-          shape: BoxShape.circle,
-        ),
-      ));
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+
+    Future<String>? getLessonQuestions = Requests().makeGetRequest("${global_data.awsBaseLink}/question/get");
+
     return Container(
         padding: const EdgeInsets.all(15),
         child: Card(
@@ -88,24 +84,71 @@ class _LessonCardState extends State<LessonCard> {
                             )),
                         Row(
                           children: [
-                            Container(
-                              alignment: Alignment.centerLeft,
-                              margin:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: global_style.textFont,
-                                      fontWeight: FontWeight.bold),
-                                  '${widget.totalExcercise} exercises'),
+                            FutureBuilder<String>(
+                              future: getLessonQuestions,
+                              builder: (context, snapshot) {
+                                if(snapshot.hasData) {
+                                  List<dynamic> response = json.decode(snapshot.data!);
+
+                                  for(var question in response) {
+                                    if(question['lesson_id'] == widget.lessonId) {
+                                      excerciseDots.add(Container(
+                                        width: 12,
+                                        height: 12,
+                                        margin: const EdgeInsets.symmetric(horizontal: 2),
+                                        decoration: const BoxDecoration(
+                                          color: Color(global_style.lightBlueAccentColor),
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ));
+                                    }
+                                  }
+
+                                  return Container(
+                                    alignment: Alignment.centerLeft,
+                                    margin:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                    child: Text(
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontFamily: global_style.textFont,
+                                            fontWeight: FontWeight.bold),
+                                        '${excerciseDots.length} exercises'),
+                                  );
+                                }
+
+                                return Center(
+                                    heightFactor: 20,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: const CircularProgressIndicator(
+                                        color: Color(global_style.lightBlueAccentColor),
+                                      ),
+                                    ));
+                              }
                             ),
                             const Spacer(),
-                            Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  children: excerciseDots,
-                                ))
+                            FutureBuilder<String>(
+                                future: getLessonQuestions,
+                                builder: (context, snapshot) {
+                                  if(snapshot.hasData) {
+                                    return Container(
+                                        margin:
+                                        const EdgeInsets.symmetric(horizontal: 15),
+                                        child: Row(
+                                          children: excerciseDots,
+                                        ));
+                                  }
+                                  return Center(
+                                      heightFactor: 20,
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: const CircularProgressIndicator(
+                                          color: Color(global_style.lightBlueAccentColor),
+                                        ),
+                                      ));
+                                }
+                            )
                           ],
                         ),
                         InkWell(
