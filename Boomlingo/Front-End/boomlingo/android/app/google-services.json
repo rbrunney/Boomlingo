@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "648688607248",
+    "project_id": "boomlingo-844fb",
+    "storage_bucket": "boomlingo-844fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648688607248:android:c804048b51d8c16b5caa95",
+        "android_client_info": {
+          "package_name": "com.example.boomlingo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648688607248-o77poq7l6q5vrp6s8a8t7ikij5l18ev8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.boomlingo",
+            "certificate_hash": "09851c9c3fc607149b11f112988c741c1ec54595"
+          }
+        },
+        {
+          "client_id": "648688607248-k2ues8iq08s0eb4ccvgabap6ik505jvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPZxA1Setd5feG_Qg7k0NMjXeAzJ0GTqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648688607248-1u05tv96j2mj76ig95vgl3ebkr2l65gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

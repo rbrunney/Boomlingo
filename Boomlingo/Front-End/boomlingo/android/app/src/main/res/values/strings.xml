@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Boomlingo</string>
+    <string name="facebook_app_id">225308513202280</string>
+    <string name="fb_login_protocol_scheme">fb225308513202280</string>
+    <string name="facebook_client_token">6388a0f1192f84a5f075406907a675b1</string>
+</resources>
+
