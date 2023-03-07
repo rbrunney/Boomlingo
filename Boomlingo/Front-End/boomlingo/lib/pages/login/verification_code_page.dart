@@ -9,6 +9,8 @@ import 'package:boomlingo/util/style/global_style.dart' as global_style;
 import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../../util/requests/requests.dart';
+
 class VerificationCodePage extends StatefulWidget {
   final String userEmail;
   const VerificationCodePage({Key? key, this.userEmail = ''}) : super(key: key);
@@ -19,6 +21,16 @@ class VerificationCodePage extends StatefulWidget {
 
 class _VerificationCodePageState extends State<VerificationCodePage> {
   TextEditingController codeController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    print('What the nut');
+    Requests().makePostRequest("https://i3n5l740cj.execute-api.us-west-1.amazonaws.com/boomlingo/sendemail", {
+      "user_email": widget.userEmail,
+      "verification_code": 738491
+    });
+  }
 
   String? get verificationCodeErrorText {
     final text = codeController.text;
@@ -33,13 +45,16 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
   }
 
   void onSubmit() {
-    // Send code off to get validated
-    Navigator.push(
-        context,
-        PageTransition(
-            child: const ChangePasswordPage(
-                token: "test"),
-            type: PageTransitionType.rightToLeftWithFade));
+
+    if(int.parse(codeController.text) == 738491) {
+      // Send code off to get validated
+      Navigator.push(
+          context,
+          PageTransition(
+              child: const ChangePasswordPage(
+                  token: "test"),
+              type: PageTransitionType.rightToLeftWithFade));
+    }
   }
 
   @override

@@ -7,6 +7,7 @@ import 'package:boomlingo/util/widgets/to_previous_page.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:boomlingo/util/style/global_style.dart' as global_style;
+import 'package:boomlingo/util/requests/requests.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   final String title;
@@ -36,6 +37,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   void onSubmit() {
+
     Navigator.push(
         context,
         PageTransition(
