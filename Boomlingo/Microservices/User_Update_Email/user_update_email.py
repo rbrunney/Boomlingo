@@ -3,10 +3,10 @@ import json
 
 def lambda_handler(event, context):
     mydb = mysql.connector.connect(
-        host="boomlingo-db.cf61ggafcjsa.us-west-2.rds.amazonaws.com",
-        user="admin",
-        password="MyBedRightNow",
-        database="boomlingo"
+        host="",
+        user="",
+        password="",
+        database=""
     )
     
     mycursor = mydb.cursor()
