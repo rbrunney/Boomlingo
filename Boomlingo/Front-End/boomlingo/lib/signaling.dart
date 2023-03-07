@@ -153,7 +153,7 @@ class Signaling {
     // if (offerSdpDescription != null) {
     //   await peerConnection.setRemoteDescription(offerSdpDescription!);
 
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
 
     if (peerConnection.getRemoteDescription() != null) {
       localStream?.getTracks().forEach((track) {
